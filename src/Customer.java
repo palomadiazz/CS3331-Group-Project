@@ -1,9 +1,9 @@
 public class Customer extends User{
     private double moneyAvailable;
     private boolean membership;
-    private String carsPurchased;
+    private int carsPurchased;
 
-    public Customer(int id, String firstName, String lastName, String username, String password, double moneyAvailable, String carsPurchased, boolean membership){
+    public Customer(int id, String firstName, String lastName, String username, String password, double moneyAvailable, int carsPurchased, boolean membership){
         super(id, firstName, lastName, username, password);
 
         this.moneyAvailable = moneyAvailable;
@@ -15,7 +15,7 @@ public class Customer extends User{
         return moneyAvailable;
     }
 
-    public String getCarsPurchased(){
+    public int getCarsPurchased(){
         return carsPurchased;
     }
 
@@ -27,7 +27,7 @@ public class Customer extends User{
         this.moneyAvailable = moneyAvailable;
     }
 
-    public void setCarsPurchased(String carsPurchased) {
+    public void setCarsPurchased(int carsPurchased) {
         this.carsPurchased = carsPurchased;
     }
 }
