@@ -20,13 +20,13 @@ public class User extends Person{
         return username;
     }
 
-    public void setUsername(String usernameIn){
-        this.username = usernameIn;
+    public void setUsername(String username){
+        this.username = username;
         // where to include dupe checking?
     }
 
-    public void setPassword(String passwordIn){
-        this.username = passwordIn;
+    public void setPassword(String password){
+        this.username = password;
     }
 
     public boolean checkPassword(String password){
