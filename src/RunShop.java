@@ -69,6 +69,50 @@ public class RunShop {
 
     public static User[] loadUsers(File file) {
         User userDataArray[] = new User[linesInFile(userDataCsv)];
+
+        int idIn;
+        String firstNameIn;
+        String lastNameIn;
+        double moneyAvailableIn;
+        int carsPurchasedIn;
+        String membershipString;
+        boolean membershipIn;
+        String usernameIn;
+        String passwordIn;
+        String userType;
+        try {
+            int count = 0;
+            Scanner fileReader = new Scanner(userDataCsv);
+            fileReader.useDelimiter(",");
+
+            while (fileReader.hasNextLine()){
+                if (count==0){
+                    fileReader.nextLine(); //discard header
+                }
+                idIn = fileReader.nextInt();
+                firstNameIn = fileReader.next();
+                lastNameIn = fileReader.next();
+                moneyAvailableIn = fileReader.nextDouble();
+                carsPurchasedIn = fileReader.nextInt();
+                membershipString = fileReader.next();
+                usernameIn = fileReader.next();
+                passwordIn = fileReader.next();
+                userType = fileReader.next();
+
+                membershipIn = membershipString.equals("TRUE");
+
+                if (userType.equals("Customer")){
+                    userDataArray[count] = new Customer(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn, moneyAvailableIn, carsPurchasedIn, membershipIn);
+                } else {
+
+                }
+                //userDataArray[count]= new User;
+                count++;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+        }
+        
         return userDataArray;
     }
 
