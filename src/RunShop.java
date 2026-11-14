@@ -9,7 +9,8 @@ public class RunShop {
     static File carDataCsv = new File("car_data.csv");
 
     public static void main(String[] args) {
-
+        User[] userDataArray = loadUsers();
+        Car[] carDataArray = loadCars();
         Scanner inputReader = new Scanner(System.in);
         String option;
 
@@ -34,7 +35,7 @@ public class RunShop {
                     System.out.println("not implemented"); // FIX
                     break;
                 case "1":
-                    register(inputReader);
+                    userDataArray = register(inputReader);
                     break;
                 case "2":
                     System.out.println("Thank you for using Miner Cars Dealership!");
@@ -67,7 +68,7 @@ public class RunShop {
         }
     }
 
-    public static User[] loadUsers(File file) {
+    public static User[] loadUsers() {
         User userDataArray[] = new User[linesInFile(userDataCsv)];
 
         int idIn;
@@ -185,7 +186,7 @@ public class RunShop {
         // include back option to return to main
         return inputReader;
     }
-    public static Scanner register(Scanner inputReader){
+    public static User[] register(Scanner inputReader){
         // prompts user for all required data (fname, lname, budget, membership) to create a new user object.
         // the rubric is confusing on what to do after a successful registration, so likely just return back out into main
         // include back option to return to main
@@ -202,6 +203,7 @@ public class RunShop {
                 try{
 
                     // id and username must be generated.
+                    // iterate through list of users and see if there are any matching names? throw exception if so
 
                     System.out.print("\nEnter your first name: ");
                     String firstNameIn = inputReader.nextLine();
@@ -220,7 +222,7 @@ public class RunShop {
                         membershipIn = inputReader.nextLine().toUpperCase();
                     }
 
-                    // create customer object and write to userData, then drop and recall user array
+                    // create customer object and write to userData
 
                 }catch (InputMismatchException e){
                     System.out.println("\nBad datatype. Please try again!");
@@ -234,7 +236,8 @@ public class RunShop {
                 break;
             }
             
-        return inputReader;
+        User[] userDataArray = loadUsers();
+        return userDataArray;
 
     }
 }
