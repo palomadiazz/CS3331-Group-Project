@@ -27,7 +27,7 @@ public class RunShop {
                 """
             );
 
-            System.out.print("Option: ");
+            System.out.print("\nOption: ");
             option = inputReader.nextLine();
             switch (option) {
                 case "0":
@@ -87,32 +87,50 @@ public class RunShop {
         // the rubric is confusing on what to do after a successful registration, so likely just return back out into main
         // include back option to return to main
 
+        String option;
+
         System.out.println("Welcome, new user!");
+        System.out.println("[0] ---------------------- REGISTER\n[1] ---------------------- CANCEL");
+        System.out.print("\nOption: ");
+        option = inputReader.nextLine();
 
-        try{
+        switch (option) {
+            case "0":
+                try{
 
-            // id and username must be generated.
+                    // id and username must be generated.
 
-            System.out.print("\nEnter your first name: ");
-            String firstNameIn = inputReader.nextLine();
+                    System.out.print("\nEnter your first name: ");
+                    String firstNameIn = inputReader.nextLine();
 
-            System.out.print("\nEnter your last name: ");
-            String lastNameIn = inputReader.nextLine();
+                    System.out.print("\nEnter your last name: ");
+                    String lastNameIn = inputReader.nextLine();
 
-            System.out.print("\nWhat's your budget? ");
-            Double moneyAvailableIn = inputReader.nextDouble();
+                    System.out.print("\nWhat's your budget? ");
+                    Double moneyAvailableIn = inputReader.nextDouble();
 
-            System.out.print("\nDo you have a membership with us? (Y/N) ");
-            String membershipIn = inputReader.nextLine();
+                    System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
+                    String membershipIn = inputReader.nextLine().toUpperCase();
+                    while (membershipIn!="TRUE" && membershipIn!="FALSE") {
+                        System.out.println("Please enter TRUE or FALSE!");
+                        System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
+                        membershipIn = inputReader.nextLine().toUpperCase();
+                    }
+
+                    // create customer object and write to userData, then drop and recall user array
+
+                }catch (InputMismatchException e){
+                    System.out.println("\nBad datatype. Please try again!");
+                }
+                break;
+            case "1":
+                System.out.println("\nReturning to main menu...");
+                break;
+            default:
+                System.out.println("\nInput not recognized. Please try again!");
+                break;
+            }
             
-
-
-            // create customer object and write to userData
-
-        }catch (InputMismatchException e){
-            System.out.println("Bad datatype. Please try again!");
-        }
-        
         return inputReader;
 
     }
