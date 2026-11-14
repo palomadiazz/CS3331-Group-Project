@@ -80,6 +80,7 @@ public class RunShop {
         String usernameIn;
         String passwordIn;
         String userType;
+
         try {
             int count = 0;
             Scanner fileReader = new Scanner(userDataCsv);
@@ -104,9 +105,8 @@ public class RunShop {
                 if (userType.equals("Customer")){
                     userDataArray[count] = new Customer(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn, moneyAvailableIn, carsPurchasedIn, membershipIn);
                 } else {
-
+                    userDataArray[count] = new Admin(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn);
                 }
-                //userDataArray[count]= new User;
                 count++;
             }
             fileReader.close();
@@ -118,6 +118,65 @@ public class RunShop {
 
     public static Car[] loadCars() {
         Car carDataArray[] = new Car[linesInFile(carDataCsv)];
+
+
+        int idIn;
+        String carType;
+        String modelIn;
+        String conditionIn;
+        String colorIn;
+        int capacityIn;
+        int mileageIn;
+        String fuelTypeIn;
+        String transmissionIn;
+        String vinIn;
+        double priceIn;
+        int carsAvailableIn;
+
+        try {
+            int count = 0;
+            Scanner fileReader = new Scanner(carDataCsv);
+            fileReader.useDelimiter(",");
+
+            while (fileReader.hasNextLine()){
+                if (count==0){
+                    fileReader.nextLine(); //discard header
+                }
+                idIn = fileReader.nextInt();
+                carType = fileReader.next();
+                modelIn = fileReader.next();
+                conditionIn = fileReader.next();
+                colorIn = fileReader.next();
+                capacityIn = fileReader.nextInt();
+                mileageIn = fileReader.nextInt();
+                fuelTypeIn = fileReader.next();
+                transmissionIn = fileReader.next();
+                vinIn = fileReader.next();
+                priceIn = fileReader.nextDouble();
+                carsAvailableIn = fileReader.nextInt();
+
+                switch (carType){
+                    case "Sedan":
+                        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+                        break;
+                    case "SUV":
+                        carDataArray[count] = new SUV(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+                        break;
+                    case "Pickup":
+                        carDataArray[count] = new Pickup(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+                        break;
+                    case "Hatchback":
+                        carDataArray[count] = new Hatchback(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+                        break;
+                    default:
+                        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+                        break;
+                }
+                count++;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+        }
         return carDataArray; 
     }   
 
