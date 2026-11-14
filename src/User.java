@@ -22,7 +22,6 @@ public class User extends Person{
 
     public void setUsername(String username){
         this.username = username;
-        // where to include dupe checking?
     }
 
     public void setPassword(String password){

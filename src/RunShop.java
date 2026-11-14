@@ -1,16 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner; 
+import java.util.Scanner;
+
 
 public class RunShop {
-
-    static File userDataCsv = new File("user_data.csv");
-    static File carDataCsv = new File("car_data.csv");
 
     public static void main(String[] args) {
         User[] userDataArray = loadUsers();
         Car[] carDataArray = loadCars();
+        if (userDataArray==null || carDataArray==null){
+            System.out.println("Files not found.");
+            return;
+        }
         Scanner inputReader = new Scanner(System.in);
         String option;
 
@@ -32,10 +36,10 @@ public class RunShop {
             option = inputReader.nextLine();
             switch (option) {
                 case "0":
-                    System.out.println("not implemented"); // FIX
+                    login(inputReader,userDataArray);
                     break;
                 case "1":
-                    userDataArray = register(inputReader);
+                    userDataArray = register(inputReader, userDataArray);
                     break;
                 case "2":
                     System.out.println("Thank you for using Miner Cars Dealership!");
@@ -45,7 +49,7 @@ public class RunShop {
                     System.out.println("Input not recognized. Please try again!");
                     break;
             }
-            System.out.println("=============================");
+            System.out.println("=======================================");
         }
         
     }
@@ -68,8 +72,21 @@ public class RunShop {
         }
     }
 
+    public static boolean HasDupeUsername(String usernameIn, User[] userDataArray){
+        for (int x = 0; x < userDataArray.length; x++){
+            if (userDataArray[x].username.equals(usernameIn)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static User[] loadUsers() {
-        User userDataArray[] = new User[linesInFile(userDataCsv)];
+        File userDataCsv = new File("user_data.csv");
+        try {
+            User userDataArray[] = new User[linesInFile(userDataCsv)];
+        
+        
 
         int idIn;
         String firstNameIn;
@@ -91,6 +108,7 @@ public class RunShop {
                 if (count==0){
                     fileReader.nextLine(); //discard header
                 }
+                
                 idIn = fileReader.nextInt();
                 firstNameIn = fileReader.next();
                 lastNameIn = fileReader.next();
@@ -115,9 +133,14 @@ public class RunShop {
         }
         
         return userDataArray;
+        } catch (NegativeArraySizeException e) {
+            return null;
+        }
     }
 
     public static Car[] loadCars() {
+        File carDataCsv = new File("car_data.csv");
+        try{
         Car carDataArray[] = new Car[linesInFile(carDataCsv)];
 
 
@@ -179,14 +202,17 @@ public class RunShop {
         } catch (FileNotFoundException e) {
         }
         return carDataArray; 
+        } catch (NegativeArraySizeException e) {
+            return null;
+        }
     }   
 
-    public static Scanner login(Scanner inputReader){
+    public static Scanner login(Scanner inputReader, User[] userDataArray){
         // prompts user for a username and password
         // include back option to return to main
         return inputReader;
     }
-    public static User[] register(Scanner inputReader){
+    public static User[] register(Scanner inputReader, User[] userDataArray){
         // prompts user for all required data (fname, lname, budget, membership) to create a new user object.
         // the rubric is confusing on what to do after a successful registration, so likely just return back out into main
         // include back option to return to main
@@ -211,18 +237,35 @@ public class RunShop {
                     System.out.print("\nEnter your last name: ");
                     String lastNameIn = inputReader.nextLine();
 
+                    System.out.print("\nEnter your username: ");
+                    String usernameIn = inputReader.nextLine();
+                    while (HasDupeUsername(usernameIn, userDataArray)){
+                        System.out.print("\nThis username is taken!");
+                        System.out.print("\nEnter your username: ");
+                        usernameIn = inputReader.nextLine();
+                    }
+
+                    System.out.print("\nEnter your password: ");
+                    String passwordIn = inputReader.nextLine();
+
                     System.out.print("\nWhat's your budget? ");
                     Double moneyAvailableIn = inputReader.nextDouble();
 
                     System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
                     String membershipIn = inputReader.nextLine().toUpperCase();
-                    while (membershipIn!="TRUE" && membershipIn!="FALSE") {
+                    while (!(membershipIn.equals("TRUE") || membershipIn.equals("FALSE"))) {
                         System.out.println("Please enter TRUE or FALSE!");
                         System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
                         membershipIn = inputReader.nextLine().toUpperCase();
                     }
 
                     // create customer object and write to userData
+
+                    try (FileWriter myWriter = new FileWriter("user_data.csv", true)) {
+                        myWriter.write(userDataArray.length+","+firstNameIn+","+lastNameIn+","+moneyAvailableIn+","+0+","+membershipIn+","+usernameIn+","+passwordIn+",Customer\n");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                    }
 
                 }catch (InputMismatchException e){
                     System.out.println("\nBad datatype. Please try again!");
@@ -236,7 +279,7 @@ public class RunShop {
                 break;
             }
             
-        User[] userDataArray = loadUsers();
+        userDataArray = loadUsers();
         return userDataArray;
 
     }
