@@ -11,13 +11,42 @@ public class RunShop {
     public static void main(String[] args) {
 
         Scanner inputReader = new Scanner(System.in);
+        String option;
 
         System.out.println("Welcome to Miner Cars Dealership!");
-        // when not in login or register menu, return here so the user may pick from one
 
-        //DEBUG
-        register(inputReader);
-        inputReader.close();
+        OUTER:
+        while (true) {
+            System.out.println(
+                """
+                MAIN MENU
+                                    
+                [0] --- Existing User? --- LOG IN
+                [1] ------ New User? ----- REGISTER
+                [2] ---------------------- EXIT
+                """
+            );
+
+            System.out.print("Option: ");
+            option = inputReader.nextLine();
+            switch (option) {
+                case "0":
+                    System.out.println("not implemented"); // FIX
+                    break;
+                case "1":
+                    register(inputReader);
+                    break;
+                case "2":
+                    System.out.println("Thank you for using Miner Cars Dealership!");
+                    inputReader.close();
+                    break OUTER;
+                default:
+                    System.out.println("Input not recognized. Please try again!");
+                    break;
+            }
+            System.out.println("=============================");
+        }
+        
     }
 
     
