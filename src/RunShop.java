@@ -119,6 +119,7 @@ public class RunShop {
                 passwordIn = fileReader.next();
                 userType = fileReader.next();
 
+
                 membershipIn = membershipString.equals("TRUE");
 
                 if (userType.equals("Customer")){
@@ -127,6 +128,11 @@ public class RunShop {
                     userDataArray[count] = new Admin(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn);
                 }
                 count++;
+
+                //DEBUG
+                for (int x = 0; x < userDataArray.length; x++){
+                    System.out.println(userDataArray[x].username);
+                }
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
