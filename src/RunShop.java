@@ -21,6 +21,13 @@ public class RunShop {
         Scanner inputReader = new Scanner(System.in);
         String option;
 
+        /* 
+        DEBUG
+        for (int x = 0; x < userDataArray.length; x++){
+            System.out.println(userDataArray[x]);
+        }
+        */
+
 
         System.out.println("Welcome to Miner Cars Dealership!");
 
@@ -131,9 +138,18 @@ public class RunShop {
         int idIn = Integer.parseInt(parts[0].trim());
         String firstNameIn = parts[1].trim();
         String lastNameIn = parts[2].trim();
-        double moneyAvailableIn = Double.parseDouble(parts[3].trim());
-        int carsPurchasedIn = Integer.parseInt(parts[4].trim());
-        boolean membershipIn = parts[5].trim().equalsIgnoreCase("TRUE");
+        double moneyAvailableIn = 0;
+        if (!parts[3].trim().isEmpty()){
+            moneyAvailableIn = Double.parseDouble(parts[3].trim());
+        }
+        int carsPurchasedIn = 0;
+        if (!parts[4].trim().isEmpty()){
+            carsPurchasedIn = Integer.parseInt(parts[4].trim());
+        }
+        boolean membershipIn = false;
+        if (!parts[5].trim().isEmpty()){
+            membershipIn = parts[5].trim().equalsIgnoreCase("TRUE");
+        }
         String usernameIn = parts[6].trim();
         String passwordIn = parts[7].trim();
         String userType = parts[8].trim();
@@ -261,11 +277,6 @@ public class RunShop {
             case "0":
                 try{
 
-
-                    // id and username must be generated.
-                    // iterate through list of users and see if there are any matching names? throw exception if so
-
-
                     System.out.print("\nEnter your first name: ");
                     String firstNameIn = inputReader.nextLine();
 
@@ -292,12 +303,15 @@ public class RunShop {
 
 
                     System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
+                    inputReader.nextLine();
                     String membershipIn = inputReader.nextLine().toUpperCase();
                     while (!(membershipIn.equals("TRUE") || membershipIn.equals("FALSE"))) {
                         System.out.println("Please enter TRUE or FALSE!");
                         System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
                         membershipIn = inputReader.nextLine().toUpperCase();
                     }
+
+                    System.out.println("New user "+usernameIn+" created!");
 
 
                     // create customer object and write to userData
@@ -328,9 +342,3 @@ public class RunShop {
 
     }
     }
-
-/*The errors shown come from two causes in loadCars():
-priceIn is undefined: You declared double prineIn, but pass priceIn to each car constructor. Rename the declaration to priceIn and use Double.parseDouble(...).
-The car classes aren’t defined in the workspace shown: SUV, Pickup, Hatchback, and Sedan are referenced, but only Main.java is available here. You’ll need to add those classes (and Car, which is also referenced) or include the files that define them.
-The repeated errors are because the same undefined price variable and missing classes are used in multiple switch branches. The earlier output is truncated, so there may be additional errors; the code shown also has typos such as Integer.parseInt and inconsistent CSV variable names
-*/
