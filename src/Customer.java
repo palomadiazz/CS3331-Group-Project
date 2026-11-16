@@ -31,4 +31,8 @@ public class Customer extends User{
     public void setCarsPurchased(int carsPurchased) {
         this.carsPurchased = carsPurchased;
     }
+
+    public String toString(){
+        return "ID: "+this.id+"\nUsername: "+this.username+"\nName: "+this.firstName+" "+this.lastName+"\nMoney Available: "+this.moneyAvailable+"\nCars Purchased: "+this.carsPurchased+"\nMembership Status: "+this.membership+"\n ";
+    }
 }
