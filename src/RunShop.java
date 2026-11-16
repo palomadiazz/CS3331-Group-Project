@@ -105,6 +105,12 @@ But if it doesn't it returns as false.
         return false;
     }
 
+    /*
+Loads all users from user_data.csv into an array.
+Skips the header row and ignores malformed lines.
+@return array of User objects, or null if the file is missing.
+*/
+
 
     public static User[] loadUsers() {
         File userDataCsv = new File("user_data.csv");
@@ -177,6 +183,10 @@ But if it doesn't it returns as false.
 
   return userDataArray;
     }
+/* Loads all cars from car_data.csv into an array.
+Skips the header row and ignores malformed lines. 
+@return array of Car objects, or null if the file is missing.
+*/
 
 
     public static Car[] loadCars() {
