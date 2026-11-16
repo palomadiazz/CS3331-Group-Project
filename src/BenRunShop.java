@@ -329,7 +329,7 @@ public class RunShop {
     }
     }
 
- /* The errors shown come from two causes in loadCars():
+/*The errors shown come from two causes in loadCars():
 priceIn is undefined: You declared double prineIn, but pass priceIn to each car constructor. Rename the declaration to priceIn and use Double.parseDouble(...).
 The car classes aren’t defined in the workspace shown: SUV, Pickup, Hatchback, and Sedan are referenced, but only Main.java is available here. You’ll need to add those classes (and Car, which is also referenced) or include the files that define them.
 The repeated errors are because the same undefined price variable and missing classes are used in multiple switch branches. The earlier output is truncated, so there may be additional errors; the code shown also has typos such as Integer.paraseInt and inconsistent CSV variable names
