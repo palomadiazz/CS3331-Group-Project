@@ -32,9 +32,4 @@ public class User extends Person{
         return this.password.equals(password);
     }
 
-    public void menu(){
-        
-    }
-
-    
 }

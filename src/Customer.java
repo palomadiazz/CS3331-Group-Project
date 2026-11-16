@@ -31,9 +31,4 @@ public class Customer extends User{
     public void setCarsPurchased(int carsPurchased) {
         this.carsPurchased = carsPurchased;
     }
-
-    @Override
-    public void menu(){
-        
-    }
 }
