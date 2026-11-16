@@ -345,32 +345,60 @@ public class RunShop {
 
     public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
         String option;
+        
+        while (true){
 
-        System.out.println(
-                """
-                MAIN MENU
-                                   
-                [0] ---------------------- 
-                [1] ---------------------- 
-                [2] ---------------------- 
-                """
-            );
+            System.out.println(
+                    """
+                    MAIN MENU
+                                    
+                    [0] ---------------------- Display Users
+                    [1] ---------------------- Search Users
+                    [2] ---------------------- Add User
+                    [3] ---------------------- Update User
+                    [4] ---------------------- Delete User
+                    [5] ---------------------- Display Cars
+                    [6] ---------------------- Add Car
+                    [7] ---------------------- Update Car
+                    [8] ---------------------- Delete Car
+                    [9] ---------------------- Get Revenue
+                    [A] ---------------------- Log out
+                    """
+                );
 
 
-        System.out.print("\nOption: ");
-        option = inputReader.nextLine();
-        switch (option) {
-            case "0":
-                break;
-            case "1":
-                return;
-            case "2":
-                break;
-            default:
-                System.out.println("Input not recognized. Please try again!");
-                break;
-            }
-        System.out.println("=======================================");
+            System.out.print("\nOption: ");
+            option = inputReader.nextLine();
+            switch (option) {
+                case "0":
+                    break;
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    break;
+                case "7":
+                    break;
+                case "8":
+                    break;
+                case "9":
+                    System.out.println("Not implemented.");
+                    break;
+                case "A":
+                    return;
+                default:
+                    System.out.println("Input not recognized. Please try again!");
+                    break;
+                }
+            System.out.println("=======================================");
+        }
 
 
     }
@@ -382,9 +410,12 @@ public class RunShop {
                 """
                 MAIN MENU
                                    
-                [0] ---------------------- 
-                [1] ---------------------- 
-                [2] ---------------------- 
+                [0] ---------------------- Manage Profile (view + update/change user/pass/money)
+                [1] ---------------------- Browse Cars (display+filter)
+                [2] ---------------------- Purchase
+                [3] ---------------------- View Invoice
+                [4] ---------------------- Return Car
+                [5] ---------------------- Log Out
                 """
             );
 
@@ -395,9 +426,17 @@ public class RunShop {
             case "0":
                 break;
             case "1":
-                return;
+                break;
             case "2":
                 break;
+            case "3":
+                System.out.println("Not implemented.");
+                break;
+            case "4":
+                System.out.println("Not implemented.");
+                break;
+            case "5":
+                return;
             default:
                 System.out.println("Input not recognized. Please try again!");
                 break;
