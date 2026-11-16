@@ -370,28 +370,32 @@ public class RunShop {
             System.out.print("\nOption: ");
             option = inputReader.nextLine();
             switch (option) {
-                case "0":
+                case "0": // display users
+                    for (int x = 0; x < userDataArray.length; x++){
+                        System.out.println(userDataArray[x]);
+                    }
                     break;
-                case "1":
+                case "1": // search users
                     break;
-                case "2":
+                case "2": // add user
                     break;
-                case "3":
+                case "3": // update user
                     break;
-                case "4":
+                case "4": // delete user
                     break;
-                case "5":
+                case "5": // display cars
                     break;
-                case "6":
+                case "6": // add car
                     break;
-                case "7":
+                case "7": // update car
                     break;
-                case "8":
+                case "8": // delete car 
                     break;
-                case "9":
+                case "9": // get revenue
                     System.out.println("Not implemented.");
                     break;
-                case "A":
+                case "A": // log out
+                    System.out.println("Thank you for choosing Miner Car Dealership!");
                     return;
                 default:
                     System.out.println("Input not recognized. Please try again!");
@@ -412,7 +416,7 @@ public class RunShop {
                                    
                 [0] ---------------------- Manage Profile (view + update/change user/pass/money)
                 [1] ---------------------- Browse Cars (display+filter)
-                [2] ---------------------- Purchase
+                [2] ---------------------- Purchase Car
                 [3] ---------------------- View Invoice
                 [4] ---------------------- Return Car
                 [5] ---------------------- Log Out
@@ -423,19 +427,20 @@ public class RunShop {
         System.out.print("\nOption: ");
         option = inputReader.nextLine();
         switch (option) {
-            case "0":
+            case "0": // manage profile INTO view profile update profile INTO change username change password update money
                 break;
-            case "1":
+            case "1": // browse cars INTO display cars filter cars
                 break;
-            case "2":
+            case "2": // purchase car
                 break;
-            case "3":
+            case "3": // view invoice 
                 System.out.println("Not implemented.");
                 break;
-            case "4":
+            case "4": // return car
                 System.out.println("Not implemented.");
                 break;
-            case "5":
+            case "5": // log out
+                System.out.println("Thank you for choosing Miner Car Dealership!");
                 return;
             default:
                 System.out.println("Input not recognized. Please try again!");
