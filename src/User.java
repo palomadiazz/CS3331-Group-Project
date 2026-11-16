@@ -25,7 +25,7 @@ public class User extends Person{
     }
 
     public void setPassword(String password){
-        this.username = password;
+        this.password = password;
     }
 
     public boolean checkPassword(String password){

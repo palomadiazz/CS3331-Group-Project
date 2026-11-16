@@ -23,7 +23,7 @@ public class Log {
 
     public void writeToLog(String in){
         try {
-        FileWriter myWriter = new FileWriter("filename.txt", true);
+        FileWriter myWriter = new FileWriter(log, true);
         myWriter.write(getDate()+in+"\n");
         myWriter.close();
         } catch (IOException e) {

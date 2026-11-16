@@ -53,6 +53,7 @@ public abstract class Car{
 
     public void displayCar() {
         System.out.println("ID: " + id);
+        System.out.println("VIN:" + vin);
         System.out.println("Type: " + getCarType());
         System.out.println("Model: " + model);
         System.out.println("Condition: " + condition);
