@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Customer extends User{
     private double moneyAvailable;
     private boolean membership;
@@ -32,8 +34,18 @@ public class Customer extends User{
         this.carsPurchased = carsPurchased;
     }
 
-    @Override
-    public void menu(){
+    public void menu(Scanner inputReader){
+        String option;
+        while (true){
+            System.out.print("\nOption: ");
+            option = inputReader.nextLine();
+        }
+
         
     }
+
+    public String toString(){
+        return "ID: "+this.id+"\nUsername: "+this.username+"\nName: "+this.firstName+" "+this.lastName+"\nMoney Available: "+this.moneyAvailable+"\nCars Purchased: "+this.carsPurchased+"\nMembership Status: "+this.membership+"\n ";
+    }
+
 }
