@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
-
-
-
 public class RunShop {
 
 
@@ -344,9 +340,6 @@ public class RunShop {
            
         userDataArray = loadUsers();
         return userDataArray;
-
-
-    }
     }
     
 
@@ -411,4 +404,5 @@ public class RunShop {
             }
         System.out.println("=======================================");
     }
+}
 
