@@ -6,7 +6,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
+
+
 public class RunShop {
+
 
     public static void main(String[] args) {
         User[] userDataArray = loadUsers();
@@ -18,19 +21,22 @@ public class RunShop {
         Scanner inputReader = new Scanner(System.in);
         String option;
 
+
         System.out.println("Welcome to Miner Cars Dealership!");
+
 
         OUTER:
         while (true) {
             System.out.println(
                 """
                 MAIN MENU
-                                    
+                                   
                 [0] --- Existing User? --- LOG IN
                 [1] ------ New User? ----- REGISTER
                 [2] ---------------------- EXIT
                 """
             );
+
 
             System.out.print("\nOption: ");
             option = inputReader.nextLine();
@@ -51,19 +57,22 @@ public class RunShop {
             }
             System.out.println("=======================================");
         }
-        
+       
     }
 
-    
+
+   
     public static int linesInFile(File file){
         try{
             Scanner fileReader = new Scanner(file);
             int count = 0;
 
-            while (fileReader.hasNextLine()) { 
+
+            while (fileReader.hasNextLine()) {
                 count++;
                 fileReader.nextLine();
             }
+
 
             fileReader.close();
             return count;
@@ -71,6 +80,7 @@ public class RunShop {
             return -1;
         }
     }
+
 
     public static boolean HasDupeUsername(String usernameIn, User[] userDataArray){
         for (int x = 0; x < userDataArray.length; x++){
@@ -81,145 +91,151 @@ public class RunShop {
         return false;
     }
 
+
     public static User[] loadUsers() {
         File userDataCsv = new File("user_data.csv");
-        try {
-            User userDataArray[] = new User[linesInFile(userDataCsv)];
-        
-        
+   if (!usernameDataCsv.exists()) {
+    return null;
+   }
 
-        int idIn;
-        String firstNameIn;
-        String lastNameIn;
-        double moneyAvailableIn;
-        int carsPurchasedIn;
-        String membershipString;
-        boolean membershipIn;
-        String usernameIn;
-        String passwordIn;
-        String userType;
 
-        try {
-            int count = 0;
-            Scanner fileReader = new Scanner(userDataCsv);
-            fileReader.useDelimiter(",");
-
-            while (fileReader.hasNextLine()){
-                if (count==0){
-                    fileReader.nextLine(); //discard header
-                }
-                
-                
-                idIn = fileReader.nextInt();
-                firstNameIn = fileReader.next();
-                lastNameIn = fileReader.next();
-                moneyAvailableIn = fileReader.nextDouble();
-                carsPurchasedIn = fileReader.nextInt();
-                membershipString = fileReader.next();
-                usernameIn = fileReader.next();
-                passwordIn = fileReader.next();
-                fileReader.useDelimiter("\n");
-
-                userType = fileReader.next();
-                userType=userType.substring(1,userType.length());
-                userType=userType.trim();
-
-                membershipIn = membershipString.equals("TRUE");
-
-                System.out.println(idIn+firstNameIn+lastNameIn+usernameIn+passwordIn+moneyAvailableIn+carsPurchasedIn+membershipIn);
-                fileReader.useDelimiter(",");
-
-                if (userType.equals("Customer")){
-                    userDataArray[count] = new Customer(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn, moneyAvailableIn, carsPurchasedIn, membershipIn);
-                } else {
-                    userDataArray[count] = new Admin(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn);
-                }
-                count++;
-            }
-            fileReader.close();
-
-            //debug
-            for (int x = 0; x < userDataArray.length; x++){
-                System.out.println(userDataArray[x].firstName);
-            }
-
-        } catch (FileNotFoundException e) {
-        }
-        
-        return userDataArray;
-        } catch (NegativeArraySizeException e) {
-            return null;
-        }
+   // First pass: count data lines only
+   int dataLines = 0;
+   try (Scanner counter = new Scanner(userDataCsv)){
+    if (counter.hasNextLine()) counter.nextLine(); // skips header
+    while (counter.hasNextLine()){
+      counter.nextLine();
+      dataLines++;
     }
+   } catch (FileNotFoundException e) {
+    return null;
+   }
+   User[] userDataArray = new User[dataLines];
+   int count = 0;
+
+
+  try (Scanner fileReader = new Scanner(userDataCSV)) {
+    if (fileReader.hasNextLine()) fileReader.nextLine(); // skip header
+
+
+    while (fileReader.hasNextLine() && count < dataLines) {
+      String line = fileReader.nextLine().trim();
+      if (line.isEmpty()) continue;
+
+
+      String[] parts = line.split(",");
+      if (parts.length < 9) continue; // malformed line
+
+
+      try{
+        int idIn = Integer.paraseInt(parts[0].trim());
+        String firstNameIn = parts[1].trim();
+        String lastNameIn = parts[2].trim();
+        double moneyAvailableIn = Double.paraseDouble(parts[3].trim());
+        int carsPurchasedIn = Integer.paraseInt(parts[4].trim());
+        boolean membershipIn = parts[5].trim().equalsIgnoreCase("TRUE");
+        String usernameIn = parts[6].trim();
+        String passwordIn = parts[7].trim();
+        String userType = parts[8].trim();
+        if (userType.equalsIgnoreCase("Customer")) {
+          userDataArray[count] = new Customer(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn, moneyAvailableIn, carsPurchasedIn, membershipIn);
+        } else {
+          userDataArray[count] = new Admin(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn);
+        }
+        count++;
+      } catch (NumberFormatException e) {
+        System.out.println("Skipping bad user line: " + line);
+      }
+    }
+  } catch (FileNotFoundException e) {
+    return null;
+  }
+
+
+  return userDataArray;
+    }
+
 
     public static Car[] loadCars() {
         File carDataCsv = new File("car_data.csv");
-        try{
-        Car carDataArray[] = new Car[linesInFile(carDataCsv)];
+        if (!carDataCsv.exists()) {
+    return null;
+   }
 
 
-        int idIn;
-        String carType;
-        String modelIn;
-        String conditionIn;
-        String colorIn;
-        int capacityIn;
-        int mileageIn;
-        String fuelTypeIn;
-        String transmissionIn;
-        String vinIn;
-        double priceIn;
-        int carsAvailableIn;
+   // First pass: count data lines only
+   int dataLines = 0;
+   try (Scanner counter = new Scanner(carDataCsv)){
+    if (counter.hasNextLine()) counter.nextLine(); // skips header
+    while (counter.hasNextLine()){
+      counter.nextLine();
+      dataLines++;
+    }
+   } catch (FileNotFoundException e) {
+    return null;
+   }
+   Car[] carDataArray = new Car[dataLines];
+   int count = 0;
 
-        try {
-            int count = 0;
-            Scanner fileReader = new Scanner(carDataCsv);
-            fileReader.useDelimiter(",");
 
-            while (fileReader.hasNextLine()){
-                if (count==0){
-                    fileReader.nextLine(); //discard header
-                }
-                idIn = fileReader.nextInt();
-                carType = fileReader.next();
-                modelIn = fileReader.next();
-                conditionIn = fileReader.next();
-                colorIn = fileReader.next();
-                capacityIn = fileReader.nextInt();
-                mileageIn = fileReader.nextInt();
-                fuelTypeIn = fileReader.next();
-                transmissionIn = fileReader.next();
-                vinIn = fileReader.next();
-                priceIn = fileReader.nextDouble();
-                carsAvailableIn = fileReader.nextInt();
+  try (Scanner fileReader = new Scanner(carDataCSV)) {
+    if (fileReader.hasNextLine()) fileReader.nextLine(); // skip header
 
-                switch (carType){
-                    case "Sedan":
-                        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
-                        break;
-                    case "SUV":
-                        carDataArray[count] = new SUV(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
-                        break;
-                    case "Pickup":
-                        carDataArray[count] = new Pickup(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
-                        break;
-                    case "Hatchback":
-                        carDataArray[count] = new Hatchback(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
-                        break;
-                    default:
-                        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
-                        break;
-                }
-                count++;
-            }
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-        }
-        return carDataArray; 
-        } catch (NegativeArraySizeException e) {
-            return null;
-        }
-    }   
+
+    while (fileReader.hasNextLine() && count < dataLines) {
+      String line = fileReader.nextLine().trim();
+      if (line.isEmpty()) continue;
+
+
+      String[] parts = line.split(",");
+      if (parts.length < 12) continue; // malformed line
+
+
+      try{
+        int idIn = Integer.paraseInt(parts[0].trim());
+        String carType = parts[1].trim();
+        String modelIn = parts[2].trim();
+        String conditionIn = parts[3].trim();
+        String colorIn = parts[4].trim();
+        int capacityIn = Integer.parseInt(parts[5].trim());
+        int mileageIn = Integer.parseInt(parts[6].trim());
+        String fuelTypeIn = parts[7].trim();
+        String transmissionIn = parts[8].trim();
+        String vinIn = parts[9].trim();
+        double prineIn = Double.parseDouble(parts[10].trim());
+        int carsAvailableIn = Integer.parseInt(parts[11].trim());
+
+
+      switch (carType) {
+        case "Sedan":
+        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+        break;
+        case "SUV":
+        carDataArray[count] = new SUV(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+        break;
+        case "Pickup":
+        carDataArray[count] = new Pickup(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+        break;
+        case "Hatchback":
+        carDataArray[count] = new Hatchback(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+        break;
+        default:
+        carDataArray[count] = new Sedan(idIn, modelIn, conditionIn, colorIn, capacityIn, mileageIn, fuelTypeIn, transmissionIn, vinIn, priceIn, carsAvailableIn);
+        break;
+      }
+        count++;
+      } catch (NumberFormatException e) {
+        System.out.println("Skipping bad car line: " + line);
+      }
+    }
+  } catch (FileNotFoundException e) {
+    return null;
+  }
+
+
+  return carDataArray;
+    }  
+
 
     public static Scanner login(Scanner inputReader, User[] userDataArray){
         // prompts user for a username and password
@@ -231,25 +247,32 @@ public class RunShop {
         // the rubric is confusing on what to do after a successful registration, so likely just return back out into main
         // include back option to return to main
 
+
         String option;
+
 
         System.out.println("Welcome, new user!");
         System.out.println("[0] ---------------------- REGISTER\n[1] ---------------------- CANCEL");
         System.out.print("\nOption: ");
         option = inputReader.nextLine();
 
+
         switch (option) {
             case "0":
                 try{
 
+
                     // id and username must be generated.
                     // iterate through list of users and see if there are any matching names? throw exception if so
+
 
                     System.out.print("\nEnter your first name: ");
                     String firstNameIn = inputReader.nextLine();
 
+
                     System.out.print("\nEnter your last name: ");
                     String lastNameIn = inputReader.nextLine();
+
 
                     System.out.print("\nEnter your username: ");
                     String usernameIn = inputReader.nextLine();
@@ -259,11 +282,14 @@ public class RunShop {
                         usernameIn = inputReader.nextLine();
                     }
 
+
                     System.out.print("\nEnter your password: ");
                     String passwordIn = inputReader.nextLine();
 
+
                     System.out.print("\nWhat's your budget? ");
                     Double moneyAvailableIn = inputReader.nextDouble();
+
 
                     System.out.print("\nDo you have a membership with us? (TRUE/FALSE) ");
                     String membershipIn = inputReader.nextLine().toUpperCase();
@@ -273,13 +299,16 @@ public class RunShop {
                         membershipIn = inputReader.nextLine().toUpperCase();
                     }
 
+
                     // create customer object and write to userData
+
 
                     try (FileWriter myWriter = new FileWriter("user_data.csv", true)) {
                         myWriter.write(userDataArray.length+","+firstNameIn+","+lastNameIn+","+moneyAvailableIn+","+0+","+membershipIn+","+usernameIn+","+passwordIn+",Customer\n");
                     } catch (IOException e) {
                         System.out.println("An error occurred.");
                     }
+
 
                 }catch (InputMismatchException e){
                     System.out.println("\nBad datatype. Please try again!");
@@ -292,9 +321,16 @@ public class RunShop {
                 System.out.println("\nInput not recognized. Please try again!");
                 break;
             }
-            
+           
         userDataArray = loadUsers();
         return userDataArray;
 
+
     }
-}
+    }
+
+ /* The errors shown come from two causes in loadCars():
+priceIn is undefined: You declared double prineIn, but pass priceIn to each car constructor. Rename the declaration to priceIn and use Double.parseDouble(...).
+The car classes aren’t defined in the workspace shown: SUV, Pickup, Hatchback, and Sedan are referenced, but only Main.java is available here. You’ll need to add those classes (and Car, which is also referenced) or include the files that define them.
+The repeated errors are because the same undefined price variable and missing classes are used in multiple switch branches. The earlier output is truncated, so there may be additional errors; the code shown also has typos such as Integer.paraseInt and inconsistent CSV variable names
+*/
