@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
@@ -342,3 +343,15 @@ public class RunShop {
 
     }
     }
+
+    public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin admin){
+        String option;
+
+        return;
+    }
+
+    public static void customerAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer){
+        String option;
+        return;
+    }
+
