@@ -94,7 +94,7 @@ public class RunShop {
 
     public static User[] loadUsers() {
         File userDataCsv = new File("user_data.csv");
-   if (!usernameDataCsv.exists()) {
+   if (!userDataCsv.exists()) {
     return null;
    }
 
@@ -114,7 +114,7 @@ public class RunShop {
    int count = 0;
 
 
-  try (Scanner fileReader = new Scanner(userDataCSV)) {
+  try (Scanner fileReader = new Scanner(userDataCsv)) {
     if (fileReader.hasNextLine()) fileReader.nextLine(); // skip header
 
 
@@ -128,11 +128,11 @@ public class RunShop {
 
 
       try{
-        int idIn = Integer.paraseInt(parts[0].trim());
+        int idIn = Integer.parseInt(parts[0].trim());
         String firstNameIn = parts[1].trim();
         String lastNameIn = parts[2].trim();
-        double moneyAvailableIn = Double.paraseDouble(parts[3].trim());
-        int carsPurchasedIn = Integer.paraseInt(parts[4].trim());
+        double moneyAvailableIn = Double.parseDouble(parts[3].trim());
+        int carsPurchasedIn = Integer.parseInt(parts[4].trim());
         boolean membershipIn = parts[5].trim().equalsIgnoreCase("TRUE");
         String usernameIn = parts[6].trim();
         String passwordIn = parts[7].trim();
@@ -178,7 +178,7 @@ public class RunShop {
    int count = 0;
 
 
-  try (Scanner fileReader = new Scanner(carDataCSV)) {
+  try (Scanner fileReader = new Scanner(carDataCsv)) {
     if (fileReader.hasNextLine()) fileReader.nextLine(); // skip header
 
 
@@ -192,7 +192,7 @@ public class RunShop {
 
 
       try{
-        int idIn = Integer.paraseInt(parts[0].trim());
+        int idIn = Integer.parseInt(parts[0].trim());
         String carType = parts[1].trim();
         String modelIn = parts[2].trim();
         String conditionIn = parts[3].trim();
@@ -202,7 +202,7 @@ public class RunShop {
         String fuelTypeIn = parts[7].trim();
         String transmissionIn = parts[8].trim();
         String vinIn = parts[9].trim();
-        double prineIn = Double.parseDouble(parts[10].trim());
+        double priceIn = Double.parseDouble(parts[10].trim());
         int carsAvailableIn = Integer.parseInt(parts[11].trim());
 
 
@@ -329,8 +329,8 @@ public class RunShop {
     }
     }
 
- /* The errors shown come from two causes in loadCars():
+/*The errors shown come from two causes in loadCars():
 priceIn is undefined: You declared double prineIn, but pass priceIn to each car constructor. Rename the declaration to priceIn and use Double.parseDouble(...).
 The car classes aren’t defined in the workspace shown: SUV, Pickup, Hatchback, and Sedan are referenced, but only Main.java is available here. You’ll need to add those classes (and Car, which is also referenced) or include the files that define them.
-The repeated errors are because the same undefined price variable and missing classes are used in multiple switch branches. The earlier output is truncated, so there may be additional errors; the code shown also has typos such as Integer.paraseInt and inconsistent CSV variable names
+The repeated errors are because the same undefined price variable and missing classes are used in multiple switch branches. The earlier output is truncated, so there may be additional errors; the code shown also has typos such as Integer.parseInt and inconsistent CSV variable names
 */
