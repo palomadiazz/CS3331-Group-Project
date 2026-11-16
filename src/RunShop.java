@@ -274,7 +274,18 @@ Skips the header row and ignores malformed lines.
     public static Scanner login(Scanner inputReader, User[] userDataArray){
         // prompts user for a username and password
         // include back option to return to main
+        String usernameIn;
+        String passwordIn;
 
+        System.out.print("\nEnter your username: ");
+        usernameIn = inputReader.next().strip();
+
+        if (findByUsername(usernameIn, userDataArray)==null){
+            System.out.println("Username not found. Please try again!");
+        }
+
+        System.out.print("\nEnter your password: ");
+        passwordIn = inputReader.next().strip();
 
         return inputReader;
     }
