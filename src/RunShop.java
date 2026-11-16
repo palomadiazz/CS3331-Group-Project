@@ -109,6 +109,7 @@ public class RunShop {
                     fileReader.nextLine(); //discard header
                 }
                 
+                
                 idIn = fileReader.nextInt();
                 firstNameIn = fileReader.next();
                 lastNameIn = fileReader.next();
@@ -117,10 +118,16 @@ public class RunShop {
                 membershipString = fileReader.next();
                 usernameIn = fileReader.next();
                 passwordIn = fileReader.next();
-                userType = fileReader.next();
+                fileReader.useDelimiter("\n");
 
+                userType = fileReader.next();
+                userType=userType.substring(1,userType.length());
+                userType=userType.trim();
 
                 membershipIn = membershipString.equals("TRUE");
+
+                System.out.println(idIn+firstNameIn+lastNameIn+usernameIn+passwordIn+moneyAvailableIn+carsPurchasedIn+membershipIn);
+                fileReader.useDelimiter(",");
 
                 if (userType.equals("Customer")){
                     userDataArray[count] = new Customer(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn, moneyAvailableIn, carsPurchasedIn, membershipIn);
@@ -128,11 +135,6 @@ public class RunShop {
                     userDataArray[count] = new Admin(idIn, firstNameIn, lastNameIn, usernameIn, passwordIn);
                 }
                 count++;
-
-                //DEBUG
-                for (int x = 0; x < userDataArray.length; x++){
-                    System.out.println(userDataArray[x].username);
-                }
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
