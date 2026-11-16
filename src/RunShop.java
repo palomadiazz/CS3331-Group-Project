@@ -376,6 +376,29 @@ public class RunShop {
                     }
                     break;
                 case "1": // search users
+                    System.out.print("Enter search criteria: ");
+                    String criterion = inputReader.next();
+                    boolean found = false;
+                    try{
+                        int idCriterion = Integer.parseInt(criterion.trim());
+                        for (int x = 0; x < userDataArray.length; x++){
+                            if (userDataArray[x].id==idCriterion) {
+                                System.out.println(userDataArray[x]);
+                                break;
+                            }                           
+                        }
+                    }catch(NumberFormatException e){
+                        for (int x = 0; x < userDataArray.length; x++){
+                            if (userDataArray[x].username.contains(criterion) || userDataArray[x].firstName.contains(criterion) || userDataArray[x].lastName.contains(criterion)) {
+                                System.out.println(userDataArray[x]);
+                                found = true;
+                            }                           
+                        }
+
+                    }
+                    if (!found){
+                        System.out.println("User not found!");
+                    }
                     break;
                 case "2": // add user
                     break;
