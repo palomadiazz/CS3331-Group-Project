@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class User extends Person{
 
     protected int id;
@@ -34,11 +32,9 @@ public class User extends Person{
         return this.password.equals(password);
     }
 
-    public void menu(Scanner inputReader){
+    public void menu(){
         
-
     }
-
 
     
 }
