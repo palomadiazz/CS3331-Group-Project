@@ -269,9 +269,7 @@ Skips the header row and ignores malformed lines.
   return carDataArray;
     }  
 
-    public static User findByUsername(String username){
-        return null;
-    }
+    
 
     public static Scanner login(Scanner inputReader, User[] userDataArray){
         // prompts user for a username and password
@@ -491,5 +489,15 @@ Skips the header row and ignores malformed lines.
             }
         System.out.println("=======================================");
     }
+
+    public static User findByUsername(String username, User[] userDataArray){
+        for (int x = 0; x < userDataArray.length; x++){
+                if (userDataArray[x].username.equals(username)) {
+                return userDataArray[x];
+            }                           
+        }
+        return null;
+    }
+
 }
 
