@@ -3,8 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
+
 
 
 
@@ -253,10 +253,15 @@ public class RunShop {
   return carDataArray;
     }  
 
+    public static User findByUsername(String username){
+        return null;
+    }
 
     public static Scanner login(Scanner inputReader, User[] userDataArray){
         // prompts user for a username and password
         // include back option to return to main
+
+
         return inputReader;
     }
     public static User[] register(Scanner inputReader, User[] userDataArray){
@@ -343,15 +348,67 @@ public class RunShop {
 
     }
     }
+    
 
-    public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin admin){
+    public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
         String option;
 
-        return;
+        System.out.println(
+                """
+                MAIN MENU
+                                   
+                [0] ---------------------- 
+                [1] ---------------------- 
+                [2] ---------------------- 
+                """
+            );
+
+
+        System.out.print("\nOption: ");
+        option = inputReader.nextLine();
+        switch (option) {
+            case "0":
+                break;
+            case "1":
+                return;
+            case "2":
+                break;
+            default:
+                System.out.println("Input not recognized. Please try again!");
+                break;
+            }
+        System.out.println("=======================================");
+
+
     }
 
     public static void customerAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer){
         String option;
-        return;
+
+        System.out.println(
+                """
+                MAIN MENU
+                                   
+                [0] ---------------------- 
+                [1] ---------------------- 
+                [2] ---------------------- 
+                """
+            );
+
+
+        System.out.print("\nOption: ");
+        option = inputReader.nextLine();
+        switch (option) {
+            case "0":
+                break;
+            case "1":
+                return;
+            case "2":
+                break;
+            default:
+                System.out.println("Input not recognized. Please try again!");
+                break;
+            }
+        System.out.println("=======================================");
     }
 
