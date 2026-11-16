@@ -137,6 +137,12 @@ public class RunShop {
                 count++;
             }
             fileReader.close();
+
+            //debug
+            for (int x = 0; x < userDataArray.length; x++){
+                System.out.println(userDataArray[x].firstName);
+            }
+
         } catch (FileNotFoundException e) {
         }
         
