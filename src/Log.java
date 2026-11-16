@@ -18,7 +18,7 @@ public class Log {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
         
         String formattedDate = date.format(format);  
-        return "["+formattedDate+"]";  
+        return "["+formattedDate+"] ";  
     }
 
     public void writeToLog(String in){
