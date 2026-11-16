@@ -7,6 +7,11 @@ import java.util.Scanner;
 
 public class RunShop {
 
+    /* Main 
+This essentially establishes the arrays for users and cars.
+If both arrays return null, then the file isn't found.
+*/
+
 
     public static void main(String[] args) {
         User[] userDataArray = loadUsers();
@@ -85,6 +90,11 @@ public class RunShop {
         }
     }
 
+/* 
+Takes in the username from the userDataArray, sort of to verify a customer's identity.
+If it turns out to be the exact username, it comes out as true.
+But if it doesn't it returns as false.
+*/
 
     public static boolean HasDupeUsername(String usernameIn, User[] userDataArray){
         for (int x = 0; x < userDataArray.length; x++){
