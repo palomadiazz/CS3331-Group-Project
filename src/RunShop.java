@@ -183,6 +183,17 @@ Skips the header row and ignores malformed lines.
 
   return userDataArray;
     }
+
+/* 
+This saves the users data. which overwrites user_data.csv
+If it isn't true, then it overwrites.
+*/
+
+public static void saveUsers(User[] userDataArray) {
+    try (FileWriter writer = new FileWriter("user_data.csv") {
+        // header
+    writer.write("ID,First Name,Last Name,Money Available,Cars)
+    
 /* Loads all cars from car_data.csv into an array.
 Skips the header row and ignores malformed lines. 
 @return array of Car objects, or null if the file is missing.
