@@ -57,6 +57,8 @@ If both arrays return null, then the file isn't found.
                     userDataArray = register(inputReader, userDataArray);
                     break;
                 case "2":
+                    saveUsers(userDataArray);
+                    savecars(carDataArray);
                     System.out.println("Thank you for using Miner Cars Dealership!");
                     inputReader.close();
                     break OUTER;
