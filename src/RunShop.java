@@ -51,7 +51,7 @@ If both arrays return null, then the file isn't found.
             option = inputReader.nextLine();
             switch (option) {
                 case "0":
-                    login(inputReader,userDataArray);
+                    login(inputReader,userDataArray, carDataArray);
                     break;
                 case "1":
                     userDataArray = register(inputReader, userDataArray);
@@ -274,25 +274,34 @@ Skips the header row and ignores malformed lines.
     }  
 
   
+public static void login(Scanner inputReader, User[] userDataArray, Car[] carDataArray) {
+    System.out.print("Username: ");
+    String username = inputReader.nextLine();
+    System.out.print("Password: ");
+    String password = inputReader.nextLine();
 
-    public static Scanner login(Scanner inputReader, User[] userDataArray){
-        // prompts user for a username and password
-        // include back option to return to main
-        String usernameIn;
-        String passwordIn;
-
-        System.out.print("\nEnter your username: ");
-        usernameIn = inputReader.next().strip();
-
-        if (findByUsername(usernameIn, userDataArray)==null){
-            System.out.println("Username not found. Please try again!");
+    User found = null;
+    for (User u : userDataArray) {
+        if (u != null && u.getUsername().equals(username) && u.checkPassword(password)) {
+            found = u;
+            break;
         }
-
-        System.out.print("\nEnter your password: ");
-        passwordIn = inputReader.next().strip();
-
-        return inputReader;
     }
+
+    if (found == null) {
+        System.out.println("Invalid username or password.");
+        return;
+    }
+
+    if (found instanceof Customer) {
+        customerAction(inputReader, userDataArray, carDataArray, (Customer) found);
+    } else if (found instanceof Admin) {
+        adminAction(inputReader, userDataArray, carDataArray, (Admin) found);
+    }
+}
+    
+
+    
     public static User[] register(Scanner inputReader, User[] userDataArray){
         // prompts user for all required data (fname, lname, budget, membership) to create a new user object.
         // the rubric is confusing on what to do after a successful registration, so likely just return back out into main
