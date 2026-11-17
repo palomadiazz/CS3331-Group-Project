@@ -542,7 +542,7 @@ public static void manageProfile(Scanner inputReader, User[] userDataArray, Cust
 
         switch (option){
             case "0":
-                customer.displayProfile();
+                System.out.println(customer);
                 break;
 
             case "1":
