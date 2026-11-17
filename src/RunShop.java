@@ -495,6 +495,7 @@ Skips the header row and ignores malformed lines.
         option = inputReader.nextLine();
         switch (option) {
             case "0": // manage profile INTO view profile update profile INTO change username change password update money
+                customer.displayProfile();
                 break;
             case "1": // browse cars INTO display cars filter cars
                 break;

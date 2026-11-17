@@ -35,4 +35,16 @@ public class Customer extends User{
     public String toString(){
         return "ID: "+this.id+"\nUsername: "+this.username+"\nName: "+this.firstName+" "+this.lastName+"\nMoney Available: "+this.moneyAvailable+"\nCars Purchased: "+this.carsPurchased+"\nMembership Status: "+this.membership+"\n ";
     }
+
+    public void displayProfile(){
+        System.out.println("[][][] CUSTOMER PROFILE [][][]");
+        System.out.println("ID: " + id);
+        System.out.println("Name: " + firstName + " " + lastName);
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("Money Available: $" + moneyAvailable);
+        System.out.println("Cars Purchased: " + carsPurchased);
+        System.out.println("Membership: " + membership);
+        System.out.println("User Type: Customer");
+    }
 }
