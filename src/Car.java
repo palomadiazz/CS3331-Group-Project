@@ -49,6 +49,27 @@ public abstract class Car{
         this.carsAvailable = carsAvailable;
     }
 
+public String getColor() {
+    return color;
+}
+
+    public int getCapacity() {
+        return Capacity;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public String getTransmission() {
+        return transmission;
+    }
+
+    public String getVIN() {
+        return vin;
+    }
+    
+    
     public abstract String getCarType();
 
     public void displayCar() {
