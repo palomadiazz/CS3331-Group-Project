@@ -484,10 +484,10 @@ This saves the users data. which overwrites user_data.csv
 If it isn't true, then it overwrites.
 **/
 
-public static void saveUsers(User[] userDataArray){
+public static void saveUsers(User[] userDataArray) {
     try (FileWriter writer = new FileWriter("user_data.csv")) {
-        // header
-    writer.write("ID,First Name,Last Name,Money Available,Cars Purchased,MinerCars Membership,Username,Password,User Type\n");
+        writer.write("ID,First Name,Last Name,Money Available,Cars Purchased,MinerCars Membership,Username,Password,User Type\n");
+//header
         for (User u : userDataArray) {
             if (u == null) continue;
 
@@ -498,18 +498,18 @@ public static void saveUsers(User[] userDataArray){
                              c.getLastName() + "," +
                              c.getMoneyAvailable() + "," +
                              c.getCarsPurchased() + "," +
-                             c.hasMembership() + "," +
+                             (c.hasMembership() ? "TRUE" : "FALSE") + "," +
                              c.getUsername() + "," +
-                             c.getPassword() + "," + "Customer\n");
-                             
-            } else { //This is for the admin
+                             c.getPassword() + "," +
+                             "Customer\n");
+            } else { // Admin
                 writer.write(u.getId() + "," +
-                    u.getFirstName() + "," +
-                    u.getLastName() + "," +
-                    "..." + // Empty on money, cars or membership
-                    u.getUsername() + "," +
-                    u.getPassword() + "," + "Admin\n");
-
+                             u.getFirstName() + "," +
+                             u.getLastName() + "," +
+                             ",,," +
+                             u.getUsername() + "," +
+                             u.getPassword() + "," +
+                             "Admin\n");
             }
         }
     } catch (IOException e) {
