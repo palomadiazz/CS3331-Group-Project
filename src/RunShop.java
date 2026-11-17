@@ -184,7 +184,7 @@ Skips the header row and ignores malformed lines.
   return userDataArray;
     }
 
-/* 
+    /* 
 This saves the users data. which overwrites user_data.csv
 If it isn't true, then it overwrites.
 */
@@ -192,10 +192,33 @@ If it isn't true, then it overwrites.
 public static void saveUsers(User[] userDataArray){
     try (FileWriter writer = new FileWriter("user_data.csv")) {
         // header
-    writer.write("ID,First Name,Last Name,Money Available,Cars");
+    writer.write("ID,First Name,Last Name,Money Available,Cars Purchased,MinerCars Membership,Username,Password,User Type\n");
+        for (User u : userDataArray) {
+            if (u == null) continue;
 
-    } catch (IOException e){
-        System.out.println("Couldn't save data.");
+            if (u instanceof Customer) {
+                Customer c = (Customer) u;
+                writer.write(c.getId() + "," +
+                             c.getFirstName() + "," +
+                             c.getLastName() + "," +
+                             c.getMoneyAvailable() + "," +
+                             c.getCarsPurchased() + "," +
+                             c.hasMembership() + "," +
+                             c.getUsername() + "," +
+                             c.getPassword() "," + "Customer\n");
+                             
+                    } else { //This is for the admin
+                writer.write(u.getId() + "," +
+                    u.getFirstName() + "," +
+                    u.getLastName() + "," +
+                    "..." // Empty on money, cars or membership
+                    u.getUserName() + "," +
+                    u.getPassword() "," + "Admin\n");
+
+            }
+        }
+    } catch (IOException e) {
+        System.out.println("Failed to save users: " + e.getMessage());
     }
 }
 /* Loads all cars from car_data.csv into an array.
@@ -284,6 +307,34 @@ Skips the header row and ignores malformed lines.
   return carDataArray;
     }  
 
+    /* 
+This saves the cars data. which overwrites car_data.csv
+If it isn't true, then it overwrites.
+*/
+
+public static void saveCars(User[] carDataArray){
+    try (FileWriter writer = new FileWriter("car_data.csv")) {
+        // header
+    writer.write("ID,Car Type,Model,Condition,Color,Capacity,Mileage,Fuel Type,Transmission,VIN,Price,Cars Available\n");
+        for (Car u : carDataArray) {
+           if (c == null) continue;
+            writer.write(c.getId() + "," +
+            c.getCarType() + "," +
+            c.getModel() + "," +
+            c.getCondition() + "," +
+            c.getColor() + "," +
+            c.getCapacity() + "," +
+            c.getMileage() + "," +
+            c.getFuelType() + "," +
+            c.getTransmission() + "," +
+            c.getVIN() + "," +
+            c.getPrice() + "," +
+            c.getCarsAvailable() + "\n");
+        }
+    } catch (IOException e) {
+        System.out.println("Failed to save cars: " + e.getMessage());
+    }
+}
     
 
     public static Scanner login(Scanner inputReader, User[] userDataArray){
