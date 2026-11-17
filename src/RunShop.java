@@ -373,7 +373,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
 
 
                     try (FileWriter myWriter = new FileWriter("user_data.csv", true)) {
-                        myWriter.write(userDataArray.length+","+firstNameIn+","+lastNameIn+","+moneyAvailableIn+","+0+","+membershipIn+","+usernameIn+","+passwordIn+",Customer\n");
+                        myWriter.write((userDataArray.length+1)+","+firstNameIn+","+lastNameIn+","+moneyAvailableIn+","+0+","+membershipIn+","+usernameIn+","+passwordIn+",Customer\n");
                     } catch (IOException e) {
                         System.out.println("An error occurred.");
                     }
