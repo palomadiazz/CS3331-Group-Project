@@ -58,7 +58,7 @@ If both arrays return null, then the file isn't found.
                     break;
                 case "2":
                     saveUsers(userDataArray);
-                    savecars(carDataArray);
+                    saveCars(carDataArray);
                     System.out.println("Thank you for using Miner Cars Dealership!");
                     inputReader.close();
                     break OUTER;
@@ -493,7 +493,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
         option = inputReader.nextLine();
         switch (option) {
             case "0": // manage profile INTO view profile update profile INTO change username change password update money
-                customer.displayProfile();
+                manageProfile(inputReader, userDataArray, customer);
                 break;
             case "1": // browse cars INTO display cars filter cars
                 break;
@@ -545,14 +545,14 @@ public static void saveUsers(User[] userDataArray){
                              c.getCarsPurchased() + "," +
                              c.hasMembership() + "," +
                              c.getUsername() + "," +
-                             c.getPassword() "," + "Customer\n");
+                             c.getPassword() + "," + "Customer\n");
                              
-                    } else { //This is for the admin
+            } else { //This is for the admin
                 writer.write(u.getId() + "," +
                     u.getFirstName() + "," +
                     u.getLastName() + "," +
                     "..." // Empty on money, cars or membership
-                    u.getUserName() + "," +
+                    u.getUsername() + "," +
                     u.getPassword() "," + "Admin\n");
 
             }
@@ -567,11 +567,11 @@ This saves the cars data. which overwrites car_data.csv
 If it isn't true, then it overwrites.
 */
 
-public static void saveCars(User[] carDataArray){
+public static void saveCars(Car[] carDataArray){
     try (FileWriter writer = new FileWriter("car_data.csv")) {
         // header
     writer.write("ID,Car Type,Model,Condition,Color,Capacity,Mileage,Fuel Type,Transmission,VIN,Price,Cars Available\n");
-        for (Car u : carDataArray) {
+        for (Car c : carDataArray) {
            if (c == null) continue;
             writer.write(c.getId() + "," +
             c.getCarType() + "," +
@@ -591,6 +591,91 @@ public static void saveCars(User[] carDataArray){
     }
 }
 
+
+
+
+public static void manageProfile(Scanner inputReader, User[] userDataArray, Customer customer){
+    String option;
+    do{
+        System.out.println("""
+                MANAGE PROFILE
+                [0] ---------------------- View Profile
+                [1] ---------------------- Change Username
+                [2] ---------------------- Change Password
+                [3] ---------------------- Add Money
+                [4] ---------------------- Back
+                """);
+
+        System.out.print("Option: ");
+        option = inputReader.nextLine();
+
+        switch (option){
+            case "0":
+                customer.displayProfile();
+                break;
+
+            case "1":
+                System.out.print("Enter new username: ");
+                String newUsername = inputReader.nextLine();
+
+                boolean usernameTaken = false;
+
+                for(User user : userDataArray){
+                    if (user != null && user != customer && user.getUsername().equalsIgnoreCase(newUsername)){
+                        usernameTaken = true;
+                        break;
+                    }
+                }
+
+                if(newUsername.isBlank()){
+                    System.out.println("Username cannot be empty.");
+                }else if(usernameTaken){
+                    System.out.println("Username is already taken.");
+                }else{
+                    customer.setUsername(newUsername);
+                    System.out.println("Username updated!");
+                }
+                break;
+
+            case "2":
+                System.out.print("Enter new password: ");
+                String newPassword = inputReader.nextLine();
+
+                if(newPassword.isBlank()){
+                    System.out.println("Password cannot be empty.");
+                }else{
+                    customer.setPassword(newPassword);
+                    System.out.println("Password updated!");
+                }
+                break;
+
+            case "3":
+                System.out.print("How much money would you like to add? $");
+
+                try{
+                    double amount = Double.parseDouble(inputReader.nextLine());
+
+                    if(amount > 0){
+                        customer.setMoneyAvailable(customer.getMoneyAvailable() + amount);
+                        System.out.println("Money added successfully!");
+                    }else{
+                        System.out.println("Enter an amount greater than zero.");
+                    }
+                }catch(NumberFormatException e){
+                    System.out.println("Please enter a valid amount.");
+                }
+                break;
+
+            case "4":
+                System.out.println("Returning to main menu");
+                break;
+
+            default:
+                System.out.println("Invalid option Try again.");
+        }
+
+    }while (!option.equals("4"));
+}
 
 
 }
