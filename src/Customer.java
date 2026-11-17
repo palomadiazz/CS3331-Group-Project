@@ -3,6 +3,19 @@ public class Customer extends User{
     private boolean membership;
     private int carsPurchased;
 
+    /** 
+    Creates or constructs a Customer using their account and membership details.
+    This contains:
+    the user's ID,
+    the user's first name,
+    the user's last name,
+    the user's username to login,
+    the user's password to login,
+    how much money the user has avaliable,
+    the number of cars the customer has purchased,
+    and whether the customer has an Miner Cars membership.
+    */
+
     public Customer(int id, String firstName, String lastName, String username, String password, double moneyAvailable, int carsPurchased, boolean membership){
         super(id, firstName, lastName, username, password);
 
