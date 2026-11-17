@@ -386,7 +386,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     
 
     public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
-        String option;
+       
         
         while (true){
 
@@ -419,7 +419,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     }
 
     public static void customerAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer){
-        String option;
+       
 while (true) {
          System.out.println("\nCUSTOMER MENU");
     System.out.println("[1] View Profile");
@@ -482,7 +482,7 @@ public static void saveUsers(User[] userDataArray){
                 writer.write(u.getId() + "," +
                     u.getFirstName() + "," +
                     u.getLastName() + "," +
-                    "..." // Empty on money, cars or membership
+                    "..." + // Empty on money, cars or membership
                     u.getUsername() + "," +
                     u.getPassword() "," + "Admin\n");
 
