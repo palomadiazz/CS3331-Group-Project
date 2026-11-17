@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class RunShop {
 
-    /* Main 
+    /** Main 
 This essentially establishes the arrays for users and cars.
 If both arrays return null, then the file isn't found.
-*/
+**/
 
 
     public static void main(String[] args) {
@@ -22,14 +22,6 @@ If both arrays return null, then the file isn't found.
         }
         Scanner inputReader = new Scanner(System.in);
         String option;
-
-        /* 
-        DEBUG
-        for (int x = 0; x < userDataArray.length; x++){
-            System.out.println(userDataArray[x]);
-        }
-        */
-
 
         System.out.println("Welcome to Miner Cars Dealership!");
 
@@ -92,11 +84,11 @@ If both arrays return null, then the file isn't found.
         }
     }
 
-/* 
+/** 
 Takes in the username from the userDataArray, sort of to verify a customer's identity.
 If it turns out to be the exact username, it comes out as true.
 But if it doesn't it returns as false.
-*/
+**/
 
     public static boolean HasDupeUsername(String usernameIn, User[] userDataArray){
         for (int x = 0; x < userDataArray.length; x++){
@@ -107,11 +99,11 @@ But if it doesn't it returns as false.
         return false;
     }
 
-    /*
-Loads all users from user_data.csv into an array.
-Skips the header row and ignores malformed lines.
-@return array of User objects, or null if the file is missing.
-*/
+    /**
+        Loads all users from user_data.csv into an array.
+        Skips the header row and ignores malformed lines.
+        @return array of User objects, or null if the file is missing.
+    **/
 
 
     public static User[] loadUsers() {
@@ -187,10 +179,10 @@ Skips the header row and ignores malformed lines.
     }
 
   
-/* Loads all cars from car_data.csv into an array.
+/** Loads all cars from car_data.csv into an array.
 Skips the header row and ignores malformed lines. 
 @return array of Car objects, or null if the file is missing.
-*/
+**/
 
 
     public static Car[] loadCars() {
@@ -455,10 +447,10 @@ while (true) {
         return null;
     }
 
-      /* 
+      /** 
 This saves the users data. which overwrites user_data.csv
 If it isn't true, then it overwrites.
-*/
+**/
 
 public static void saveUsers(User[] userDataArray){
     try (FileWriter writer = new FileWriter("user_data.csv")) {
@@ -484,7 +476,7 @@ public static void saveUsers(User[] userDataArray){
                     u.getLastName() + "," +
                     "..." + // Empty on money, cars or membership
                     u.getUsername() + "," +
-                    u.getPassword() "," + "Admin\n");
+                    u.getPassword() + "," + "Admin\n");
 
             }
         }
@@ -602,7 +594,7 @@ public static void manageProfile(Scanner inputReader, User[] userDataArray, Cust
                 break;
 
             default:
-                System.out.println("Invalid option Try again.");
+                System.out.println("Invalid option. Try again.");
         }
 
     }while (!option.equals("4"));

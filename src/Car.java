@@ -33,6 +33,10 @@ public abstract class Car{
         return model;
     }
 
+    public String getFuelType(){
+        return fuelType;
+    }
+
     public String getCondition(){
         return condition;
     }
@@ -54,7 +58,7 @@ public String getColor() {
 }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public int getMileage() {
