@@ -11,6 +11,21 @@ public abstract class Car{
     protected double price;
     protected int carsAvailable;
 
+/** 
+Details a car with the given specifications:
+The car's ID,
+The name of the model the car is,
+What the car's condition is,
+What color the car is,
+The seating capacity for the car,
+The current mileage the car has,
+What type of fuel the car takes,
+The car's transmission type,
+The car's identification number (VIN),
+The price of the car,
+And the number of units or cars in stock.
+*/
+    
     public Car(int id, String model, String condition, String color, int capacity, int mileage, String fuelType, String transmission, String vin, double price, int carsAvailable){
         this.id = id;
         this.model = model;
@@ -76,6 +91,10 @@ public String getColor() {
     
     public abstract String getCarType();
 
+/** 
+Records a timestamped message to the log files, which pushes the message into the log.
+*/
+    
     public void displayCar() {
         System.out.println("ID: " + id);
         System.out.println("VIN:" + vin);
