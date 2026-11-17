@@ -63,7 +63,11 @@ If both arrays return null, then the file isn't found.
        
     }
 
-
+/**
+* Counts the number of lines in a file.
+* @param file the file to count.
+* @return number of lines, or -1 if the files is not found.
+*/
    
     public static int linesInFile(File file){
         try{
@@ -265,6 +269,12 @@ Skips the header row and ignores malformed lines.
   return carDataArray;
     }  
 
+    /** Prompts for the username and password and logs the user in.
+    Directs the user to the customer or admin menu based on their type.
+    @param inputReader the scanner for user input.
+    @param userDataArray the array of users.
+    @param carDataArray the array of cars.
+    */
   
 public static void login(Scanner inputReader, User[] userDataArray, Car[] carDataArray) {
     System.out.print("Username: ");
@@ -292,7 +302,11 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     }
 }
     
-
+/** Registers a new customer and appends them to the users CSV.
+@param inputReader the scanner for user input.
+@param userDataArray the current array of users.
+@return the updated user array after reloading.
+*/
     
     public static User[] register(Scanner inputReader, User[] userDataArray){
         // prompts user for all required data (fname, lname, budget, membership) to create a new user object.
@@ -375,7 +389,13 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
         userDataArray = loadUsers();
         return userDataArray;
     }
-    
+
+    /** Displays the admin menu and handles the admin actions.
+    @param inputReader the scanner for user input.
+    @param userDataArray the array of users.
+    @param carDataArray the array of cars.
+    @param adminname the logged-in admin.
+    */
 
     public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
        
@@ -410,6 +430,13 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
 
     }
 
+/** Displays the customer menu and it handles the customer's actions.
+@param inputReader the scanner for user input.
+@param userDataArray the array of users.
+@param carDataArray the array of cars.
+@param customer the logged-in customer.
+*/
+    
     public static void customerAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer){
        
 while (true) {
