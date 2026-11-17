@@ -4,6 +4,14 @@ public class User extends Person{
     protected String username;
     protected String password;
 
+    /** 
+    This constructs a User with the given details:
+    unique user ID,
+    the user's first name,
+    the user's last name,
+    the usernma used to login,
+    and the password used to login.
+    */
     public User(int id, String firstName, String lastName, String username, String password){
         super(firstName, lastName);
 
