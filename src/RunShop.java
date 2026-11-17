@@ -11,9 +11,12 @@ public class RunShop {
 This essentially establishes the arrays for users and cars.
 If both arrays return null, then the file isn't found.
 **/
-
+static File logFile = new File("log.txt");
+static Log log = new Log(logFile);
 
     public static void main(String[] args) {
+
+        
         User[] userDataArray = loadUsers();
         Car[] carDataArray = loadCars();
         if (userDataArray==null || carDataArray==null){
@@ -296,8 +299,10 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     }
 
     if (found instanceof Customer) {
+        log.writeToLog(username+" logged in.");
         customerAction(inputReader, userDataArray, carDataArray, (Customer) found);
     } else if (found instanceof Admin) {
+        log.writeToLog("Admin "+username+" logged in.");
         adminAction(inputReader, userDataArray, carDataArray, (Admin) found);
     }
 }
