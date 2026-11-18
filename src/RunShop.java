@@ -442,6 +442,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
                         for (int x = 0; x < userDataArray.length; x++){
                             if (userDataArray[x].id==idCriterion) {
                                 System.out.println(userDataArray[x]);
+                                found = true;
                                 break;
                             }                           
                         }
@@ -533,6 +534,8 @@ while (true) {
                 }
                 break;
             }else if (option.equals("1")){ //placeholder, fix shortly
+                
+                boolean found = false;
                 System.out.print("""
                     Choose search criteria: 
                     [0] ---------------------- ID
@@ -542,9 +545,25 @@ while (true) {
                 """);
                 System.out.println("Option: ");
                 option = inputReader.nextLine();
+                System.out.print("Enter search criteria: ");
+                String criterion = inputReader.next();
                 switch (option){
                     case "0":
+                        try {
+                        int idCriterion = Integer.parseInt(criterion);
+                        for (int x = 0; x < carDataArray.length; x++){
+                            if (carDataArray[x].id==idCriterion) {
+                                System.out.println(carDataArray[x]);
+                                found = true;
+                                break;
+                            }                           
+                        }
+                        } catch (NumberFormatException e){
+                            System.out.println("Mismatched input. Returning...");
+                        } finally {
                         break;
+                        }
+                        
                     case "1":
                         break;
                     case "2":
@@ -554,6 +573,9 @@ while (true) {
                     default:
                         System.out.println("Input not recognized. Returning...");
                         break;
+                }
+                if (!found){
+                        System.out.println("Car not found!");
                 }
                 
             }else{
