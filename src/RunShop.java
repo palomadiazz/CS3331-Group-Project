@@ -797,6 +797,7 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
         for (int x = 0; x < carDataArray.length; x++){
             if (carDataArray[x].id==idCriterion) {
             carDataArray[x]=null;
+            saveCars(carDataArray);
             System.out.println("Car deleted.");
             return;
             }                           
@@ -804,7 +805,6 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
     } catch (NumberFormatException e){
         System.out.println("Input type mismatch. Please enter a number.");
     }
-    return;
 }
 
 public static void purchaseCar(Scanner inputReader, Customer customer, Car[] carDataArray, User[] userDataArray){
