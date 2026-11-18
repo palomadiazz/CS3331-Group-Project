@@ -504,7 +504,7 @@ while (true) {
                 CUSTOMER MENU
 
                 [0] ---------------------- Manage Profile
-                [1] ---------------------- Browse Cars (display+filter)
+                [1] ---------------------- Browse Cars
                 [2] ---------------------- Purchase Car
                 [3] ---------------------- View Invoice
                 [4] ---------------------- Return Car
@@ -522,8 +522,8 @@ while (true) {
                 """
                 BROWSE CARS
 
-                [0] ---------------------- Manage Profile
-                [1] ---------------------- Browse Cars (display+filter)
+                [0] ---------------------- Display Car
+                [1] ---------------------- Filter Cars
                 """);
             System.out.println("Option: ");
             option = inputReader.nextLine();
@@ -533,30 +533,29 @@ while (true) {
                 }
                 break;
             }else if (option.equals("1")){ //placeholder, fix shortly
-                System.out.print("Enter search criteria: ");
-                        String criterion = inputReader.next();
-                        boolean found = false;
-                        try{
-                            int idCriterion = Integer.parseInt(criterion.trim());
-                            for (int x = 0; x < userDataArray.length; x++){
-                                if (userDataArray[x].id==idCriterion) {
-                                    System.out.println(userDataArray[x]);
-                                    break;
-                                }                           
-                            }
-                        }catch(NumberFormatException e){
-                            for (int x = 0; x < userDataArray.length; x++){
-                                if (userDataArray[x].username.contains(criterion) || userDataArray[x].firstName.contains(criterion) || userDataArray[x].lastName.contains(criterion)) {
-                                    System.out.println(userDataArray[x]);
-                                    found = true;
-                                }                           
-                            }
-
-                        }
-                        if (!found){
-                            System.out.println("User not found!");
-                        }
-                break;
+                System.out.print("""
+                    Choose search criteria: 
+                    [0] ---------------------- ID
+                    [1] ---------------------- Car Type
+                    [2] ---------------------- Condition
+                    [3] ---------------------- Price
+                """);
+                System.out.println("Option: ");
+                option = inputReader.nextLine();
+                switch (option){
+                    case "0":
+                        break;
+                    case "1":
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    default:
+                        System.out.println("Input not recognized. Returning...");
+                        break;
+                }
+                
             }else{
                 System.out.println("Input not recognized. Returning...");
                 break;
