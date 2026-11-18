@@ -546,11 +546,12 @@ while (true) {
 
 public static void browseCars(Scanner inputReader, Car[] carDataArray){
     String option;
+    boolean found = false;
     System.out.println(
                 """
                 BROWSE CARS
 
-                [0] ---------------------- Display Car
+                [0] ---------------------- Display Cars
                 [1] ---------------------- Filter Cars
                 """);
             System.out.println("Option: ");
@@ -589,6 +590,7 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                             System.out.println("Mismatched input. Returning...");
                             return;
                         }
+                        break;
                     case "1":
                         System.out.print("""
                             Choose search criteria: 
@@ -605,31 +607,39 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Hatchback")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
+                                break;
                             case "1":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Pickup")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
+                                break;
                             case "2":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Sedan")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
+                                break;
                             case "3":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("SUV")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
+                                break;
                             default:
                                 System.out.println("Input not recognized. Returning...");
                                 return;
                         }
-
+                        break;
                     case "2":
                         System.out.print("""
                             Choose search criteria: 
@@ -644,6 +654,7 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].condition.equals("New")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
                                 break;
@@ -651,6 +662,7 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].condition.equals("Used")) {
                                         carDataArray[x].displayCar();
+                                        found = true;
                                     }                           
                                 }
                                 break;
@@ -658,7 +670,7 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 System.out.println("Input not recognized. Returning...");
                                 return;
                         }
-
+                        break;
                     case "3":
                         try {
                         System.out.print("Enter price: ");
@@ -667,8 +679,10 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                         for (int x = 0; x < carDataArray.length; x++){
                             if (Math.abs(carDataArray[x].price-priceCriterion)<=5000) {
                                 carDataArray[x].displayCar();
+                                found = true;
                             }                           
                         }
+                        break;
                         } catch (NumberFormatException e){
                             System.out.println("Mismatched input. Returning...");
                             return;
@@ -677,6 +691,10 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                     default:
                         System.out.println("Input not recognized. Returning...");
                         return;
+                }
+                
+                if (!found){
+                    System.out.println("freka");
                 }
             }else{
                 System.out.println("Input not recognized. Returning...");
