@@ -518,10 +518,49 @@ while (true) {
             manageProfile(inputReader, userDataArray, customer);
             break;
         case "1":  // browse (display/filter) cars
-            for (Car c: carDataArray) {
-                if (c != null) c.displayCar();
+        System.out.println(
+                """
+                BROWSE CARS
+
+                [0] ---------------------- Manage Profile
+                [1] ---------------------- Browse Cars (display+filter)
+                """);
+            System.out.println("Option: ");
+            option = inputReader.nextLine();
+            if (option.equals("0")){
+                for (Car c: carDataArray) {
+                    if (c != null) c.displayCar();
+                }
+                break;
+            }else if (option.equals("1")){ //placeholder, fix shortly
+                System.out.print("Enter search criteria: ");
+                        String criterion = inputReader.next();
+                        boolean found = false;
+                        try{
+                            int idCriterion = Integer.parseInt(criterion.trim());
+                            for (int x = 0; x < userDataArray.length; x++){
+                                if (userDataArray[x].id==idCriterion) {
+                                    System.out.println(userDataArray[x]);
+                                    break;
+                                }                           
+                            }
+                        }catch(NumberFormatException e){
+                            for (int x = 0; x < userDataArray.length; x++){
+                                if (userDataArray[x].username.contains(criterion) || userDataArray[x].firstName.contains(criterion) || userDataArray[x].lastName.contains(criterion)) {
+                                    System.out.println(userDataArray[x]);
+                                    found = true;
+                                }                           
+                            }
+
+                        }
+                        if (!found){
+                            System.out.println("User not found!");
+                        }
+                break;
+            }else{
+                System.out.println("Input not recognized. Returning...");
+                break;
             }
-            break;
         case "2": // purchase car
             return;
         case "3": //view invoice
