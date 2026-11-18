@@ -478,7 +478,9 @@ public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carD
                 break;
 
                 case "4": // delete user
+                deleteUser(inputReader, userDataArray);
                 break;
+
                 case "5": // display cars
                     for (Car c : carDataArray) {
                         if (c != null) c.displayCar();
@@ -494,7 +496,7 @@ public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carD
                     deleteCar(inputReader, carDataArray);
                     break;
                 case "9": // get revenue
-                    System.out.println("Not implemented.");
+                    getRevenue();
                     break;
                 case "A":
                     System.out.println("Thank you for choosing Miner Car Dealership!");
@@ -775,6 +777,57 @@ public static void addCar(Scanner inputReader, Car[] carDataArray){
         System.out.println("Please enter valid numbers.");
     }
 }
+
+public static void deleteUser(Scanner inputReader, User[] userDataArray){
+    System.out.print("Enter the User ID you want to delete: ");
+    int id;
+
+    try{
+        id = Integer.parseInt(inputReader.nextLine());
+    }catch(NumberFormatException e){
+        System.out.println("Invalid ID.");
+        return;
+    }
+    int userIndex = -1;
+    for(int x = 0; x < userDataArray.length; x++){
+        if (userDataArray[x] != null && userDataArray[x].getId() == id){
+            userIndex = x;
+            break;
+        }
+    }
+
+    if(userIndex == -1){
+        System.out.println("User not found!");
+        return;
+    }
+
+    System.out.println("User found:");
+    System.out.println(userDataArray[userIndex]);
+
+    System.out.print("Are you sure you want to delete this user? (Y/N): ");
+    String confirmation = inputReader.nextLine();
+
+    if(confirmation.equalsIgnoreCase("Y")){
+        userDataArray[userIndex] = null;
+        saveUsers(userDataArray);
+        System.out.println("User deleted successfully!");
+        log.writeToLog("Deleted user ID " + id);
+    }else{
+        System.out.println("Deletion cancelled.");
+    }
+}
+
+public static void getRevenue(){
+    double totalRevenue = 0;
+    for(int x = 0; x < invoiceCount; x++){
+        totalRevenue += invoicePrices[x];
+    }
+
+    System.out.println("\n[][][] Total Revenue [][][]");
+    System.out.printf("Total Revenue: $%.2f%n", totalRevenue);
+    log.writeToLog("Admin checked total revenue.");
+}
+
 
 /** Displays the customer menu and it handles the customer's actions.
 @param inputReader the scanner for user input.
