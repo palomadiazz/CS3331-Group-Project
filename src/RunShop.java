@@ -796,15 +796,17 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
         int idCriterion = Integer.parseInt(criterion);
         for (int x = 0; x < carDataArray.length; x++){
             if (carDataArray[x].id==idCriterion) {
-            carDataArray[x]=null;
-            saveCars(carDataArray);
-            System.out.println("Car deleted.");
-            return;
+                carDataArray[x]=null;
+                saveCars(carDataArray);
+                System.out.println("Car deleted.");
+                return;
             }                           
         }
         System.out.println("Car not found.");
+        return;
     } catch (NumberFormatException e){
         System.out.println("Input type mismatch. Please enter a number.");
+        return;
     }
 }
 
