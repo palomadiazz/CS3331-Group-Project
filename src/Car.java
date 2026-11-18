@@ -107,6 +107,6 @@ Records a timestamped message to the log files, which pushes the message into th
         System.out.println("Fuel: " + fuelType);
         System.out.println("Transmission: " + transmission);
         System.out.println("Price: $" + price);
-        System.out.println("Available: " + carsAvailable);
+        System.out.println("Available: " + carsAvailable + "\n ");
     }
 }
