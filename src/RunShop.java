@@ -802,6 +802,7 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
             return;
             }                           
         }
+        System.out.println("Car not found.");
     } catch (NumberFormatException e){
         System.out.println("Input type mismatch. Please enter a number.");
     }
