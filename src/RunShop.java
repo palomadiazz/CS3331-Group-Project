@@ -480,6 +480,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
                 case "7": // update car
                     break;
                 case "8": // delete car
+                    deleteCar(inputReader, carDataArray);
                     break;
                 case "9": // get revenue
                     System.out.println("Not implemented.");
@@ -528,7 +529,7 @@ while (true) {
             browseCars(inputReader, carDataArray);
             break;
         case "2": // purchase car
-            purchaseCar(inputReader, customer, carDataArray);
+            purchaseCar(inputReader, customer, carDataArray, userDataArray);
             break;
         case "3": //view invoice
             viewInvoice(customer);
@@ -703,8 +704,13 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
             }
 }
 
+public static void deleteCar(Scanner inputReader, Car[] carDataArray){
+    System.out.print("Enter the Car ID you want to delete: ");
+    String criterion = inputReader.next();
+    return;
+}
 
-public static void purchaseCar(Scanner inputReader, Customer customer, Car[] carDataArray){
+public static void purchaseCar(Scanner inputReader, Customer customer, Car[] carDataArray, User[] userDataArray){
     System.out.print("Enter the Car ID you want to purchase: ");
     int carID = inputReader.nextInt();
     inputReader.nextLine();
@@ -735,6 +741,9 @@ public static void purchaseCar(Scanner inputReader, Customer customer, Car[] car
                 System.out.println("Car purchased successfully!");
                 car.displayCar();
                 System.out.println("Remaining Money: $" + customer.getMoneyAvailable());
+
+                saveCars(carDataArray);
+                saveUsers(userDataArray);
             }
 
             break;
