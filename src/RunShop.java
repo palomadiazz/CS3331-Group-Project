@@ -1005,7 +1005,7 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
 }
 
 public static void updateCar(Scanner inputReader, Car[] carDataArray){
-    System.out.print("Enter the Car ID you want to delete: ");
+    System.out.print("Enter the Car ID you want to update: ");
     String criterion = inputReader.next();
     try{
         int idCriterion = Integer.parseInt(criterion);
@@ -1013,18 +1013,23 @@ public static void updateCar(Scanner inputReader, Car[] carDataArray){
             if (carDataArray[x].id==idCriterion) {
                 System.out.println("Current information:");
                 carDataArray[x].displayCar();
-                saveCars(carDataArray);
 
+                System.out.println("Enter new price: ");
+                Double priceIn = Double.parseDouble(inputReader.next());
+                System.out.println("Enter new price: ");
+                int availableIn = Integer.parseInt(inputReader.next());
                 
+                carDataArray[x].setPrice(priceIn);
+                carDataArray[x].setCarsAvailable(availableIn);
+
+                saveCars(carDataArray);
                 System.out.println("Car modified.");
                 return;
             }                           
         }
-        System.out.println("Car not found.");
-        return;
+        System.out.println("Car not found."); 
     } catch (NumberFormatException e){
         System.out.println("Input type mismatch. Please enter a number.");
-        return;
     }
 }
 
