@@ -481,6 +481,7 @@ public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carD
                 case "6": // add car
                     break;
                 case "7": // update car
+                    updateCar(inputReader, carDataArray);
                     break;
                 case "8": // delete car
                     deleteCar(inputReader, carDataArray);
@@ -799,6 +800,30 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
                 carDataArray[x]=null;
                 saveCars(carDataArray);
                 System.out.println("Car deleted.");
+                return;
+            }                           
+        }
+        System.out.println("Car not found.");
+        return;
+    } catch (NumberFormatException e){
+        System.out.println("Input type mismatch. Please enter a number.");
+        return;
+    }
+}
+
+public static void updateCar(Scanner inputReader, Car[] carDataArray){
+    System.out.print("Enter the Car ID you want to delete: ");
+    String criterion = inputReader.next();
+    try{
+        int idCriterion = Integer.parseInt(criterion);
+        for (int x = 0; x < carDataArray.length; x++){
+            if (carDataArray[x].id==idCriterion) {
+                System.out.println("Current information:");
+                carDataArray[x].displayCar();
+                saveCars(carDataArray);
+
+                
+                System.out.println("Car modified.");
                 return;
             }                           
         }
