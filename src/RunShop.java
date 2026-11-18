@@ -214,7 +214,7 @@ Skips the header row and ignores malformed lines.
    } catch (FileNotFoundException e) {
     return null;
    }
-   Car[] carDataArray = new Car[dataLines];
+   Car[] carDataArray = new Car[dataLines + 100];
    int count = 0;
 
 
@@ -466,11 +466,17 @@ public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carD
                     if (!found){
                         System.out.println("User not found!");
                     }
+                    break;
+
                 case "2": // add user
                 userDataArray = addUser(inputReader, userDataArray);
                 break;
+
                 case "3": // update user
+                updateUser(inputReader, userDataArray);
+                saveUsers(userDataArray);
                 break;
+
                 case "4": // delete user
                 break;
                 case "5": // display cars
@@ -479,6 +485,7 @@ public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carD
                     }
                     break;
                 case "6": // add car
+                    addCar(inputReader, carDataArray);
                     break;
                 case "7": // update car
                     break;
@@ -580,6 +587,192 @@ public static User[] addUser(Scanner inputReader, User[] userDataArray) {
     System.out.println("User ID: " + newID);
 
     return updatedArray;
+}
+
+public static void updateUser(Scanner inputReader, User[] userDataArray){
+    System.out.print("Enter the User ID you want to update: ");
+    int id = Integer.parseInt(inputReader.nextLine());
+    User found = null;
+
+    for(User u : userDataArray){
+        if (u != null && u.getId() == id){
+            found = u;
+            break;
+        }
+    }
+
+    if(found == null){
+        System.out.println("User not found!");
+        return;
+    }
+
+    System.out.println("User found: " + found);
+    System.out.println("[1] Update First Name");
+    System.out.println("[2] Update Last Name");
+    System.out.println("[3] Update Username");
+    System.out.println("[4] Update Password");
+    System.out.println("[0] Back");
+    System.out.print("Choose an option: ");
+
+    String choice = inputReader.nextLine();
+
+    switch (choice){
+        case "1":
+            System.out.print("Enter new first name: ");
+            found.setFirstName(inputReader.nextLine());
+            break;
+
+        case "2":
+            System.out.print("Enter new last name: ");
+            found.setLastName(inputReader.nextLine());
+            break;
+
+        case "3":
+            System.out.print("Enter new username: ");
+            String username = inputReader.nextLine();
+
+            boolean duplicate = false;
+
+            for(User u : userDataArray){
+                if (u != null && u != found &&
+                    u.getUsername().equals(username)){
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (duplicate){
+                System.out.println("Username already exists!");
+            }else{
+                found.setUsername(username);
+                System.out.println("Username updated!");
+            }
+            break;
+
+        case "4":
+            System.out.print("Enter new password: ");
+            found.setPassword(inputReader.nextLine());
+            break;
+
+        case "0":
+            return;
+
+        default:
+            System.out.println("Invalid option.");
+    }
+}
+
+public static void addCar(Scanner inputReader, Car[] carDataArray){
+    int id = 1;
+    for (Car c : carDataArray){
+        if (c != null && c.getId() >= id){
+            id = c.getId() + 1;
+        }
+    }
+
+    System.out.println("\n[][][] Add Car [][][]");
+    System.out.println("[1] Sedan");
+    System.out.println("[2] SUV");
+    System.out.println("[3] Hatchback");
+    System.out.println("[4] Pickup");
+    System.out.print("Choose car type: ");
+
+    String choice = inputReader.nextLine();
+    String type = "";
+
+    switch (choice) {
+        case "1":
+            type = "Sedan";
+            break;
+        case "2":
+            type = "SUV";
+            break;
+        case "3":
+            type = "Hatchback";
+            break;
+        case "4":
+            type = "Pickup";
+            break;
+        default:
+            System.out.println("Invalid car type.");
+            return;
+    }
+
+    try{
+        System.out.print("Enter model: ");
+        String model = inputReader.nextLine();
+
+        System.out.print("Enter condition (New/Used): ");
+        String condition = inputReader.nextLine();
+
+        System.out.print("Enter color: ");
+        String color = inputReader.nextLine();
+
+        System.out.print("Enter capacity: ");
+        int capacity = Integer.parseInt(inputReader.nextLine());
+
+        System.out.print("Enter mileage: ");
+        int mileage = Integer.parseInt(inputReader.nextLine());
+
+        System.out.print("Enter fuel type: ");
+        String fuelType = inputReader.nextLine();
+
+        System.out.print("Enter transmission: ");
+        String transmission = inputReader.nextLine();
+
+        System.out.print("Enter VIN: ");
+        String vin = inputReader.nextLine();
+
+        System.out.print("Enter price: ");
+        double price = Double.parseDouble(inputReader.nextLine());
+
+        System.out.print("Enter number of cars available: ");
+        int carsAvailable = Integer.parseInt(inputReader.nextLine());
+
+        if (capacity <= 0 || mileage < 0 || price < 0 || carsAvailable < 0){
+            System.out.println("Invalid number entered.");
+            return;
+        }
+
+        Car newCar = null;
+
+        if (type.equals("Sedan")){
+            newCar = new Sedan(id, model, condition, color, capacity,
+                    mileage, fuelType, transmission, vin, price, carsAvailable);
+        } else if (type.equals("SUV")){
+            newCar = new SUV(id, model, condition, color, capacity,
+                    mileage, fuelType, transmission, vin, price, carsAvailable);
+        } else if (type.equals("Hatchback")){
+            newCar = new Hatchback(id, model, condition, color, capacity,
+                    mileage, fuelType, transmission, vin, price, carsAvailable);
+        } else if (type.equals("Pickup")){
+            newCar = new Pickup(id, model, condition, color, capacity,
+                    mileage, fuelType, transmission, vin, price, carsAvailable);
+        }
+
+        int emptySpot = -1;
+        for(int x = 0; x < carDataArray.length; x++){
+            if(carDataArray[x] == null){
+                emptySpot = x;
+                break;
+            }
+        }
+
+        if(emptySpot == -1){
+            System.out.println("No room for another car.");
+            return;
+        }
+
+        carDataArray[emptySpot] = newCar;
+
+        System.out.println("Car added successfully!");
+        newCar.displayCar();
+
+        log.writeToLog("Admin added car ID " + id);
+
+    } catch (NumberFormatException e) {
+        System.out.println("Please enter valid numbers.");
+    }
 }
 
 /** Displays the customer menu and it handles the customer's actions.
