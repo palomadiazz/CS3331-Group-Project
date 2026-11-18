@@ -50,7 +50,7 @@ static int invoiceCount = 0;
             option = inputReader.nextLine();
             switch (option) {
                 case "0":
-                    login(inputReader,userDataArray, carDataArray);
+                    userDataArray = login(inputReader,userDataArray, carDataArray);
                     break;
                 case "1":
                     userDataArray = register(inputReader, userDataArray);
@@ -283,7 +283,7 @@ Skips the header row and ignores malformed lines.
     @param carDataArray the array of cars.
     */
   
-public static void login(Scanner inputReader, User[] userDataArray, Car[] carDataArray) {
+public static User[] login(Scanner inputReader, User[] userDataArray, Car[] carDataArray) {
     System.out.print("Username: ");
     String username = inputReader.nextLine();
     System.out.print("Password: ");
@@ -299,7 +299,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
 
     if (found == null) {
         System.out.println("Invalid username or password.");
-        return;
+        return userDataArray;
     }
 
     if (found instanceof Customer) {
@@ -307,8 +307,10 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
         customerAction(inputReader, userDataArray, carDataArray, (Customer) found);
     } else if (found instanceof Admin) {
         log.writeToLog("Admin "+username+" logged in.");
-        adminAction(inputReader, userDataArray, carDataArray, (Admin) found);
+        userDataArray = adminAction(inputReader, userDataArray, carDataArray, (Admin) found);
     }
+
+    return userDataArray;
 }
     
 /** Registers a new customer and appends them to the users CSV.
@@ -408,7 +410,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     @param adminname the logged-in admin.
     */
 
-    public static void adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
+    public static User[] adminAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Admin adminname){
        
         
         while (true){
@@ -465,6 +467,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
                         System.out.println("User not found!");
                     }
                 case "2": // add user
+                userDataArray = addUser(inputReader, userDataArray);
                 break;
                 case "3": // update user
                 break;
@@ -487,7 +490,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
                     break;
                 case "A":
                     System.out.println("Thank you for choosing Miner Car Dealership!");
-                    return;
+                    return userDataArray;
                 default:
                     System.out.println("Input not recognized. Please try again!");
             }
@@ -496,6 +499,88 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
 
 
     }
+
+public static User[] addUser(Scanner inputReader, User[] userDataArray) {
+
+    System.out.println("\n[][][] ADD NEW USER [][][]");
+    System.out.println("[0] Customer");
+    System.out.println("[1] Admin");
+    System.out.print("Choose user type: ");
+
+    String option = inputReader.nextLine();
+
+    if(!option.equals("0") && !option.equals("1")){
+        System.out.println("Invalid user type.");
+        return userDataArray;
+    }
+
+    System.out.print("Enter first name: ");
+    String firstName = inputReader.nextLine();
+
+    System.out.print("Enter last name: ");
+    String lastName = inputReader.nextLine();
+
+    System.out.print("Enter username: ");
+    String username = inputReader.nextLine();
+
+    boolean usernameTaken = true;
+
+    while(usernameTaken){
+        usernameTaken = false;
+
+        for(User u : userDataArray){
+            if (u != null && u.getUsername().equalsIgnoreCase(username)){
+                usernameTaken = true;
+                break;
+            }
+        }
+
+        if(usernameTaken){
+            System.out.println("Username already exists.");
+            System.out.print("Enter another username: ");
+            username = inputReader.nextLine();
+        }
+    }
+
+    System.out.print("Enter password: ");
+    String password = inputReader.nextLine();
+
+    int newID = 100;
+
+    for(User u : userDataArray){
+        if(u != null && u.getId() >= newID){
+            newID = u.getId() + 1;
+        }
+    }
+
+    User newUser;
+
+    if(option.equals("0")){
+
+        System.out.print("Enter money available: $");
+        double money = Double.parseDouble(inputReader.nextLine());
+
+        System.out.print("MinerCars Membership (TRUE/FALSE): ");
+        boolean membership = inputReader.nextLine().equalsIgnoreCase("TRUE");
+
+        newUser = new Customer(newID, firstName, lastName, username, password, money, 0, membership);
+    }else{
+        newUser = new Admin(newID, firstName, lastName, username, password);
+    }
+
+    User[] updatedArray = new User[userDataArray.length + 1];
+
+    for (int x = 0; x < userDataArray.length; x++) {
+        updatedArray[x] = userDataArray[x];
+    }
+
+    updatedArray[updatedArray.length - 1] = newUser;
+
+    System.out.println("New user created successfully!");
+    System.out.println("User ID: " + newID);
+
+    return updatedArray;
+}
 
 /** Displays the customer menu and it handles the customer's actions.
 @param inputReader the scanner for user input.
