@@ -707,6 +707,17 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
 public static void deleteCar(Scanner inputReader, Car[] carDataArray){
     System.out.print("Enter the Car ID you want to delete: ");
     String criterion = inputReader.next();
+    try{
+        int idCriterion = Integer.parseInt(criterion);
+        for (int x = 0; x < carDataArray.length; x++){
+            if (carDataArray[x].id==idCriterion) {
+            carDataArray[x]=null;
+            return;
+            }                           
+        }
+    } catch (NumberFormatException e){
+        System.out.println("Input type mismatch. Please enter a number.");
+    }
     return;
 }
 
