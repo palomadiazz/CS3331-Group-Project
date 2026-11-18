@@ -523,69 +523,8 @@ while (true) {
             manageProfile(inputReader, userDataArray, customer);
             break;
         case "1":  // browse (display/filter) cars
-        System.out.println(
-                """
-                BROWSE CARS
-
-                [0] ---------------------- Display Car
-                [1] ---------------------- Filter Cars
-                """);
-            System.out.println("Option: ");
-            option = inputReader.nextLine();
-            if (option.equals("0")){
-                for (Car c: carDataArray) {
-                    if (c != null) c.displayCar();
-                }
-                break;
-            }else if (option.equals("1")){ //placeholder, fix shortly
-                
-                boolean found = false;
-                System.out.print("""
-                    Choose search criteria: 
-                    [0] ---------------------- ID
-                    [1] ---------------------- Car Type
-                    [2] ---------------------- Condition
-                    [3] ---------------------- Price
-                """);
-                System.out.println("Option: ");
-                option = inputReader.nextLine();
-                System.out.print("Enter search criteria: ");
-                String criterion = inputReader.next();
-                switch (option){
-                    case "0":
-                        try {
-                        int idCriterion = Integer.parseInt(criterion);
-                        for (int x = 0; x < carDataArray.length; x++){
-                            if (carDataArray[x].id==idCriterion) {
-                                System.out.println(carDataArray[x]);
-                                found = true;
-                                break;
-                            }                           
-                        }
-                        } catch (NumberFormatException e){
-                            System.out.println("Mismatched input. Returning...");
-                        } finally {
-                        break;
-                        }
-                        
-                    case "1":
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        break;
-                    default:
-                        System.out.println("Input not recognized. Returning...");
-                        break;
-                }
-                if (!found){
-                        System.out.println("Car not found!");
-                }
-                
-            }else{
-                System.out.println("Input not recognized. Returning...");
-                break;
-            }
+            browseCars(inputReader, carDataArray);
+            break;
         case "2": // purchase car
             purchaseCar(inputReader, customer, carDataArray);
             break;
@@ -604,6 +543,154 @@ while (true) {
 }
 
     }
+
+public static void browseCars(Scanner inputReader, Car[] carDataArray){
+    String option;
+    System.out.println(
+                """
+                BROWSE CARS
+
+                [0] ---------------------- Display Car
+                [1] ---------------------- Filter Cars
+                """);
+            System.out.println("Option: ");
+            option = inputReader.nextLine();
+            if (option.equals("0")){
+                for (Car c: carDataArray) {
+                    if (c != null) c.displayCar();
+                }
+                return;
+            }else if (option.equals("1")){ 
+                
+                boolean found = false;
+                System.out.print("""
+                    Choose search criteria: 
+
+                    [0] ---------------------- ID
+                    [1] ---------------------- Car Type
+                    [2] ---------------------- Condition
+                    [3] ---------------------- Price
+                """);
+                System.out.println("Option: ");
+                option = inputReader.nextLine();
+                
+                switch (option){
+                    case "0":
+                        try {
+                        System.out.print("Enter ID: ");
+                        String criterion = inputReader.next();
+                        int idCriterion = Integer.parseInt(criterion);
+                        for (int x = 0; x < carDataArray.length; x++){
+                            if (carDataArray[x].id==idCriterion) {
+                                carDataArray[x].displayCar();
+                                found = true;
+                                return;
+                            }                           
+                        }
+                        } catch (NumberFormatException e){
+                            System.out.println("Mismatched input. Returning...");
+                            return;
+                        }
+                    case "1":
+                        System.out.print("""
+                            Choose search criteria: 
+                            
+                            [0] ---------------------- Hatchback
+                            [1] ---------------------- Pickup
+                            [2] ---------------------- Sedan
+                            [3] ---------------------- SUV
+                        """);
+                        System.out.println("Option: ");
+                        option = inputReader.nextLine();
+                        switch (option){
+                            case "0":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].getCarType().equals("Hatchback")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                            case "1":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].getCarType().equals("Pickup")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                            case "2":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].getCarType().equals("Sedan")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                            case "3":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].getCarType().equals("SUV")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                            default:
+                                System.out.println("Input not recognized. Returning...");
+                                return;
+                        }
+
+                    case "2":
+                        System.out.print("""
+                            Choose search criteria: 
+
+                            [0] ---------------------- New
+                            [1] ---------------------- Used
+                        """);
+                        System.out.println("Option: ");
+                        option = inputReader.nextLine();
+                        switch (option){
+                            case "0":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].condition.equals("New")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                                break;
+                            case "1":
+                                for (int x = 0; x < carDataArray.length; x++){
+                                    if (carDataArray[x].condition.equals("Used")) {
+                                        carDataArray[x].displayCar();
+                                        found = true;
+                                    }                           
+                                }
+                                break;
+                            default:
+                                System.out.println("Input not recognized. Returning...");
+                                return;
+                        }
+
+                    case "3":
+                        try {
+                        System.out.print("Enter price: ");
+                        String criterion = inputReader.next();
+                        int priceCriterion = Integer.parseInt(criterion);
+                        for (int x = 0; x < carDataArray.length; x++){
+                            if (Math.abs(carDataArray[x].price-priceCriterion)<=5000) {
+                                carDataArray[x].displayCar();
+                                found = true;
+                            }                           
+                        }
+                        } catch (NumberFormatException e){
+                            System.out.println("Mismatched input. Returning...");
+                            return;
+                        }
+
+                    default:
+                        System.out.println("Input not recognized. Returning...");
+                        return;
+                }
+            }else{
+                System.out.println("Input not recognized. Returning...");
+            }
+}
 
 
 public static void purchaseCar(Scanner inputReader, Customer customer, Car[] carDataArray){
