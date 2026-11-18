@@ -561,8 +561,7 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                 }
                 return;
             }else if (option.equals("1")){ 
-                
-                boolean found = false;
+
                 System.out.print("""
                     Choose search criteria: 
 
@@ -583,7 +582,6 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                         for (int x = 0; x < carDataArray.length; x++){
                             if (carDataArray[x].id==idCriterion) {
                                 carDataArray[x].displayCar();
-                                found = true;
                                 return;
                             }                           
                         }
@@ -607,28 +605,24 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Hatchback")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                             case "1":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Pickup")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                             case "2":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("Sedan")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                             case "3":
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].getCarType().equals("SUV")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                             default:
@@ -650,7 +644,6 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].condition.equals("New")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                                 break;
@@ -658,7 +651,6 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                                 for (int x = 0; x < carDataArray.length; x++){
                                     if (carDataArray[x].condition.equals("Used")) {
                                         carDataArray[x].displayCar();
-                                        found = true;
                                     }                           
                                 }
                                 break;
@@ -675,7 +667,6 @@ public static void browseCars(Scanner inputReader, Car[] carDataArray){
                         for (int x = 0; x < carDataArray.length; x++){
                             if (Math.abs(carDataArray[x].price-priceCriterion)<=5000) {
                                 carDataArray[x].displayCar();
-                                found = true;
                             }                           
                         }
                         } catch (NumberFormatException e){
@@ -858,7 +849,7 @@ public static void saveUsers(User[] userDataArray) {
     }
 }
 
-  /* 
+  /**
 This saves the cars data. which overwrites car_data.csv
 If it isn't true, then it overwrites.
 */
