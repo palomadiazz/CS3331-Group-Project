@@ -370,7 +370,7 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
                         membershipIn = inputReader.nextLine().toUpperCase();
                     }
 
-                    System.out.println("New user "+usernameIn+" created!");
+                    
 
 
                     // create customer object and write to userData
@@ -378,6 +378,8 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
 
                     try (FileWriter myWriter = new FileWriter("user_data.csv", true)) {
                         myWriter.write((userDataArray.length+1)+","+firstNameIn+","+lastNameIn+","+moneyAvailableIn+","+0+","+membershipIn+","+usernameIn+","+passwordIn+",Customer\n");
+                        System.out.println("New user "+usernameIn+" created!");
+                        log.writeToLog("New user "+usernameIn+" registered.");
                     } catch (IOException e) {
                         System.out.println("An error occurred.");
                     }
@@ -938,7 +940,9 @@ public static void manageProfile(Scanner inputReader, User[] userDataArray, Cust
                     System.out.println("Username is already taken.");
                 }else{
                     customer.setUsername(newUsername);
+                    saveUsers(userDataArray);
                     System.out.println("Username updated!");
+                    
                 }
                 break;
 
@@ -950,6 +954,7 @@ public static void manageProfile(Scanner inputReader, User[] userDataArray, Cust
                     System.out.println("Password cannot be empty.");
                 }else{
                     customer.setPassword(newPassword);
+                    saveUsers(userDataArray);
                     System.out.println("Password updated!");
                 }
                 break;
@@ -962,6 +967,7 @@ public static void manageProfile(Scanner inputReader, User[] userDataArray, Cust
 
                     if(amount > 0){
                         customer.setMoneyAvailable(customer.getMoneyAvailable() + amount);
+                        saveUsers(userDataArray);
                         System.out.println("Money added successfully!");
                     }else{
                         System.out.println("Enter an amount greater than zero.");
