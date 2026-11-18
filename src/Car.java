@@ -60,6 +60,10 @@ And the number of units or cars in stock.
         return price;
     }
 
+    public void setPrice(double price){
+        this.price = price;
+    }
+
     public int getCarsAvailable(){
         return carsAvailable;
     }
@@ -87,6 +91,8 @@ public String getColor() {
     public String getVIN() {
         return vin;
     }
+
+    
     
     
     public abstract String getCarType();
