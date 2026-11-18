@@ -407,29 +407,83 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
         
         while (true){
 
-           System.out.println("\nADMIN MENU");
-            System.out.println("[1] View All Users");
-            System.out.println("[2] View All Cars");
-            System.out.println("[3] Logout");
+           System.out.println(
+                    """
+                    ADMIN MENU  
+                                    
+                    [0] ---------------------- Display Users
+                    [1] ---------------------- Search Users
+                    [2] ---------------------- Add User
+                    [3] ---------------------- Update User
+                    [4] ---------------------- Delete User
+                    [5] ---------------------- Display Cars
+                    [6] ---------------------- Add Car
+                    [7] ---------------------- Update Car
+                    [8] ---------------------- Delete Car
+                    [9] ---------------------- Get Revenue
+                    [A] ---------------------- Log out
+                    """);
             System.out.print("Option: ");
             String option = inputReader.nextLine();
 
             switch (option) {
-                case "1":
+                case "0":
                     for (User u : userDataArray) {
                         if (u != null) System.out.println(u);
                     }
                     break;
-                case "2":
+
+                case "1": // search users
+                    System.out.print("Enter search criteria: ");
+                    String criterion = inputReader.next();
+                    boolean found = false;
+                    try{
+                        int idCriterion = Integer.parseInt(criterion.trim());
+                        for (int x = 0; x < userDataArray.length; x++){
+                            if (userDataArray[x].id==idCriterion) {
+                                System.out.println(userDataArray[x]);
+                                break;
+                            }                           
+                        }
+                    }catch(NumberFormatException e){
+                        for (int x = 0; x < userDataArray.length; x++){
+                            if (userDataArray[x].username.contains(criterion) || userDataArray[x].firstName.contains(criterion) || userDataArray[x].lastName.contains(criterion)) {
+                                System.out.println(userDataArray[x]);
+                                found = true;
+                            }                           
+                        }
+
+                    }
+                    if (!found){
+                        System.out.println("User not found!");
+                    }
+                case "2": // add user
+                break;
+                case "3": // update user
+                break;
+                case "4": // delete user
+                break;
+                case "5": // display cars
                     for (Car c : carDataArray) {
                         if (c != null) c.displayCar();
                     }
                     break;
-                case "3":
+                case "6": // add car
+                    break;
+                case "7": // update car
+                    break;
+                case "8": // delete car
+                    break;
+                case "9": // get revenue
+                    System.out.println("Not implemented.");
+                    break;
+                case "A":
+                    System.out.println("Thank you for choosing Miner Car Dealership!");
                     return;
                 default:
-                    System.out.println("Invalid option.");
+                    System.out.println("Input not recognized. Please try again!");
             }
+            System.out.println("=======================================");
         }
 
 
@@ -445,26 +499,42 @@ public static void login(Scanner inputReader, User[] userDataArray, Car[] carDat
     public static void customerAction(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer){
        
 while (true) {
-         System.out.println("\nCUSTOMER MENU");
-    System.out.println("[1] View Profile");
-    System.out.println("[2] Display All Cars");
-    System.out.println("[3] Logout");
+         System.out.println(
+                """
+                CUSTOMER MENU
+
+                [0] ---------------------- Manage Profile
+                [1] ---------------------- Browse Cars (display+filter)
+                [2] ---------------------- Purchase Car
+                [3] ---------------------- View Invoice
+                [4] ---------------------- Return Car
+                [5] ---------------------- Log Out
+                """);
     System.out.println("Option: ");
     String option = inputReader.nextLine();
 
     switch (option) {
-        case "1":
-            System.out.println(customer);
+        case "0":
+            manageProfile(inputReader, userDataArray, customer);
             break;
-        case "2":
+        case "1":  // browse (display/filter) cars
             for (Car c: carDataArray) {
                 if (c != null) c.displayCar();
             }
             break;
-        case "3":
+        case "2": // purchase car
+            return;
+        case "3": //view invoice
+            System.out.println("Not implemented.");
+            return;
+        case "4": // return car
+            System.out.println("Not implemented.");
+            return;
+        case "5":
+            System.out.println("Thank you for choosing Miner Car Dealership!");
             return;
         default:
-            System.out.println("Invlaid option.");
+            System.out.println("Input not recognized. Please try again!");
     }
 }
 
