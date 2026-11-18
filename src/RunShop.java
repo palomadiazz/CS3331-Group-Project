@@ -712,6 +712,7 @@ public static void deleteCar(Scanner inputReader, Car[] carDataArray){
         for (int x = 0; x < carDataArray.length; x++){
             if (carDataArray[x].id==idCriterion) {
             carDataArray[x]=null;
+            System.out.println("Car deleted.");
             return;
             }                           
         }
