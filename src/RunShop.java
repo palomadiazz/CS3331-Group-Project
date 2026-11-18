@@ -13,6 +13,10 @@ If both arrays return null, then the file isn't found.
 **/
 static File logFile = new File("log.txt");
 static Log log = new Log(logFile);
+static Car[] invoiceCars = new Car[100];
+static int[] invoiceCustomerIDs = new int[100];
+static double[] invoicePrices = new double[100];
+static int invoiceCount = 0;
 
     public static void main(String[] args) {
 
@@ -561,13 +565,14 @@ while (true) {
                 break;
             }
         case "2": // purchase car
-            return;
+            purchaseCar(inputReader, customer, carDataArray);
+            break;
         case "3": //view invoice
-            System.out.println("Not implemented.");
-            return;
+            viewInvoice(customer);
+            break;
         case "4": // return car
-            System.out.println("Not implemented.");
-            return;
+            returnCar(inputReader, customer, carDataArray);
+            break;
         case "5":
             System.out.println("Thank you for choosing Miner Car Dealership!");
             return;
@@ -577,6 +582,125 @@ while (true) {
 }
 
     }
+
+
+public static void purchaseCar(Scanner inputReader, Customer customer, Car[] carDataArray){
+    System.out.print("Enter the Car ID you want to purchase: ");
+    int carID = inputReader.nextInt();
+    inputReader.nextLine();
+
+    boolean found = false;
+
+    for(int x = 0; x < carDataArray.length; x++){
+        if(carDataArray[x] != null && carDataArray[x].getId() == carID){
+            found = true;
+            Car car = carDataArray[x];
+
+            if(car.getCarsAvailable() <= 0){
+                System.out.println("This car is not available.");
+            }
+            else if(customer.getMoneyAvailable() < car.getPrice()){
+                System.out.println("You do not have enough money to purchase this car.");
+            }
+            else{
+                customer.setMoneyAvailable(customer.getMoneyAvailable() - car.getPrice());
+                car.setCarsAvailable(car.getCarsAvailable() - 1);
+                customer.setCarsPurchased(customer.getCarsPurchased() + 1);
+
+                invoiceCars[invoiceCount] = car;
+                invoiceCustomerIDs[invoiceCount] = customer.getId();
+                invoicePrices[invoiceCount] = car.getPrice();
+                invoiceCount++;
+
+                System.out.println("Car purchased successfully!");
+                car.displayCar();
+                System.out.println("Remaining Money: $" + customer.getMoneyAvailable());
+            }
+
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Car ID not found.");
+    }
+}
+
+
+public static void viewInvoice(Customer customer) {
+
+    boolean found = false;
+    double total = 0;
+
+    System.out.println("\n[][][] PURCHASE INVOICE [][][]");
+    System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
+    System.out.println("Customer ID: " + customer.getId());
+
+    for (int x = 0; x < invoiceCount; x++) {
+
+        if (invoiceCustomerIDs[x] == customer.getId()) {
+
+            found = true;
+
+            System.out.println("\nCar ID: " + invoiceCars[x].getId());
+            System.out.println("Car Type: " + invoiceCars[x].getCarType());
+            System.out.println("Model: " + invoiceCars[x].getModel());
+            System.out.println("Price: $" + invoicePrices[x]);
+
+            total = total + invoicePrices[x];
+        }
+    }
+
+    if (found) {
+        System.out.println("\nTotal: $" + total);
+    }
+    else {
+        System.out.println("No purchases found.");
+    }
+}
+
+
+public static void returnCar(Scanner inputReader, Customer customer, Car[] carDataArray){
+
+    System.out.print("Enter the Car ID you want to return: ");
+    int carID = inputReader.nextInt();
+    inputReader.nextLine();
+
+    boolean found = false;
+    
+
+    for(int x = 0; x < invoiceCount; x++){
+        if(invoiceCustomerIDs[x] == customer.getId() && invoiceCars[x].getId() == carID){
+            found = true;
+            for(int y = 0; y < carDataArray.length; y++){
+                if(carDataArray[y] != null && carDataArray[y].getId() == carID){
+                    carDataArray[y].setCarsAvailable(carDataArray[y].getCarsAvailable() + 1);
+                    break;
+                }
+            }
+            double refund = invoicePrices[x];
+            customer.setMoneyAvailable(customer.getMoneyAvailable() + refund);
+            customer.setCarsPurchased(customer.getCarsPurchased() - 1);
+            for(int y = x; y < invoiceCount - 1; y++){
+                invoiceCars[y] = invoiceCars[y + 1];
+                invoiceCustomerIDs[y] = invoiceCustomerIDs[y + 1];
+                invoicePrices[y] = invoicePrices[y + 1];
+            }
+
+            invoiceCount--;
+
+            System.out.println("Car returned successfully!");
+            System.out.println("Refund: $" + refund);
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("You have not purchased a car with that ID.");
+    }
+}
+
+
 
     public static User findByUsername(String username, User[] userDataArray){
         for (int x = 0; x < userDataArray.length; x++){
