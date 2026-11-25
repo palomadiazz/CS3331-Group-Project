@@ -1,3 +1,10 @@
+/*
+This work was done as a team and completely on our own. We did not share, reproduce, or alter any part of this
+assignment for any purpose. We did not share code, upload this assignment online in any form, or view/receive/
+modify code written by anyone else. All deliverables were produced entirely on our own. This assignment is part of
+an academic course at The University of Texas at El Paso, and a grade will be assigned for the work we produced.
+*/
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
