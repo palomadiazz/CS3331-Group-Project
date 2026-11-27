@@ -7,8 +7,122 @@ public class CustomerInterface extends Interface {
         super(scanner, userDataArray, carDataArray, customer, userDataCsv, carDataCsv);
     }
 
+    @Override
     public void supermenu() {
+        String menu =
+            """
+                ===============================================
+                CUSTOMER MENU
+
+                [1] ---------------------- Manage Profile
+                [2] ---------------------- Browse Cars
+                [3] ---------------------- Purchase Car
+                [4] ---------------------- View Invoice
+                [5] ---------------------- Return Car
+                [6] ---------------------- Log Out
+            """;
+
+        while (true) { 
+            switch(optionHandler(menu, 6)){
+                case 1:
+                    manageProfile();
+                    break;
+                case 2:
+                    browseCars();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    System.out.println("Thank you for choosing Miner Car Dealership!");
+                    return;
+            }
+        }
+    }
+
+    public void manageProfile(){
+
+    }
+
+    public void browseCars(){
+        String menu = 
+            """
+            BROWSE CARS
+
+            [1] ---------------------- Display Cars
+            [2] ---------------------- Filter Cars
+            """;
+
+        switch(optionHandler(menu, 2)){
+            case 1:
+                displayCars();
+                break;
+            case 2:
+                filterCars();
+                break;
+        }
+    }
+
+    // INCOMPLETE
+    public void filterCars(){
+        String menu = 
+        """
+        Choose search criteria: 
+
+            [1] ---------------------- ID
+            [2] ---------------------- Car Type
+            [3] ---------------------- Condition
+            [4] ---------------------- Price
+        """;
+
+        switch (optionHandler(menu, 4)) {
+            case 1:       
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4: 
+                break;
+        }
     }
     
-    
+    public Car carById(int idIn){
+        for (int x = 0; x < carDataArray.length; x++){
+            if (carDataArray[x].id==idIn) {
+                return carDataArray[x];
+            }                           
+        }
+        return null;
+    }
+
+    public boolean PrintCarByType(String carTypeIn){
+        boolean found = false;
+        for (int x = 0; x < this.carDataArray.length; x++){
+            if (this.carDataArray[x].getCarType().equals(carTypeIn)) {
+                carDataArray[x].displayCar();
+            }                           
+        }
+        return found;
+    }
+
+    public boolean PrintCarByCondition(String conditionIn){
+        boolean found = false;
+        for (int x = 0; x < carDataArray.length; x++){
+            if (carDataArray[x].condition.equals(conditionIn)) {
+                carDataArray[x].displayCar();
+                found = true;
+            }                           
+        }
+        return found;
+    }
+
+    public boolean PrintCarByPrice(double priceIn){
+        boolean found = false;
+        return found;
+    }
+
 }

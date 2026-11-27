@@ -8,5 +8,8 @@ public class AdminInterface extends Interface {
     }
     
     public void supermenu() {
+        while (true) { 
+            return;
+        }
     }
 }

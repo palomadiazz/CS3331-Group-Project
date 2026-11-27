@@ -29,7 +29,7 @@ public abstract class Interface {
         while (true){
             System.out.println(menu);
 
-            System.out.print("Option: ");
+            System.out.print("\nOption: ");
             option = this.scanner.next();
 
             try {
@@ -44,6 +44,12 @@ public abstract class Interface {
         }
     }
     
+    public void displayCars(){
+        for (Car c: carDataArray) {
+            if (c != null) c.displayCar();
+        }
+    }
+
     public void saveUsers(){
         try (FileWriter writer = new FileWriter("user_data.csv")) {
             writer.write("ID,First Name,Last Name,Money Available,Cars Purchased,MinerCars Membership,Username,Password,User Type\n");
