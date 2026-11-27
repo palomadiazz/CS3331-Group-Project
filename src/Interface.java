@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 
 public abstract class Interface {
@@ -5,12 +6,16 @@ public abstract class Interface {
     protected User[] userDataArray;
     protected Car[] carDataArray;
     protected User user;
+    private File userDataCsv;
+    private File carDataCsv;
 
     public Interface(Scanner scanner, User[] userDataArray, Car[] carDataArray, User user){
         this.scanner = scanner;
         this.userDataArray = userDataArray;
         this.carDataArray = carDataArray;
         this.user = user;
+        this.userDataCsv = userDataCsv;
+        this.carDataCsv = carDataCsv;
     }
 
     public int optionHandler(String menu, int max){
@@ -33,8 +38,6 @@ public abstract class Interface {
                 System.out.println("Input not recognized. Please try again!");
             }
         }
-
-
     }
     
 }
