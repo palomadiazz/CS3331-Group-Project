@@ -59,16 +59,51 @@ public class CustomerInterface extends Interface {
                     ((Customer) this.user).displayProfile();
                     break;
                 case 2:
+                    usernameChange();
                     break;
                 case 3:
+                    String newPassword;
+                    System.out.print("Enter new password: ");
+                    newPassword = inputReader.nextLine();
+                    this.user.setPassword(newPassword);
+                    System.out.println("Password updated!");
                     break;
                 case 4:
+                    double amount;
+                    System.out.print("How much money would you like to add? $");
+                    try{
+                        amount = Double.parseDouble(inputReader.nextLine());
+                        ((Customer) this.user).setMoneyAvailable(((Customer) this.user).getMoneyAvailable() + amount);
+                        System.out.println("Money added successfully!");
+                    }catch(NumberFormatException e){
+                            System.out.println("Please enter a valid amount.");
+                    }
                     break;
                 case 5:  
                     return;
             }
+            saveUsers();
         }
 
+    }
+
+    public void usernameChange(){
+        String newUsername; 
+
+        System.out.print("Enter new username: ");
+        newUsername = inputReader.nextLine();
+        while (newUsername.isBlank() || hasDupeUsername(newUsername)) { 
+            if (newUsername.isBlank()) {
+                System.out.println("Username cannot be empty.");
+            }else{
+                System.out.println("Username is already taken.");
+            }
+            System.out.print("Enter new username: ");
+            newUsername = inputReader.nextLine();
+        }
+
+        this.user.setUsername(newUsername);
+        System.out.println("Username updated!");
     }
 
     public void browseCars(){
