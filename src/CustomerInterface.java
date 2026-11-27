@@ -177,7 +177,7 @@ public class CustomerInterface extends Interface {
             case 3 -> typeIn = "Sedan";
             case 4 -> typeIn = "SUV";   
         }
-        if (!PrintCarByType(typeIn)){
+        if (!printCarByType(typeIn)){
             System.out.println("Car not found.");
         }
     }
@@ -196,7 +196,7 @@ public class CustomerInterface extends Interface {
             case 1 -> conditionIn = "New";
             case 2 -> conditionIn = "Used";
         }
-        if (!PrintCarByCondition(conditionIn)){
+        if (!printCarByCondition(conditionIn)){
             System.out.println("Car not found.");
         }
 
@@ -211,7 +211,7 @@ public class CustomerInterface extends Interface {
         return null;
     }
 
-    public boolean PrintCarByType(String carTypeIn){
+    public boolean printCarByType(String carTypeIn){
         boolean found = false;
         for (int x = 0; x < this.carDataArray.length; x++){
             if (this.carDataArray[x].getCarType().equals(carTypeIn)) {
@@ -221,7 +221,7 @@ public class CustomerInterface extends Interface {
         return found;
     }
 
-    public boolean PrintCarByCondition(String conditionIn){
+    public boolean printCarByCondition(String conditionIn){
         boolean found = false;
         for (int x = 0; x < carDataArray.length; x++){
             if (carDataArray[x].condition.equals(conditionIn)) {
@@ -232,7 +232,7 @@ public class CustomerInterface extends Interface {
         return found;
     }
 
-    public boolean PrintCarByPrice(double priceIn){
+    public boolean printCarByPrice(double priceIn){
         boolean found = false;
         return found;
     }
