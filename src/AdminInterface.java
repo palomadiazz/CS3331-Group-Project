@@ -7,4 +7,6 @@ public class AdminInterface extends Interface {
         super(scanner, userDataArray, carDataArray, admin, userDataCsv, carDataCsv);
     }
     
+    public void supermenu() {
+    }
 }
