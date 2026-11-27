@@ -106,4 +106,12 @@ public abstract class Interface {
         }
     }
 
+    public boolean hasDupeUsername(String usernameIn){
+        for (User userDataArray1 : this.userDataArray) {
+            if (userDataArray1.username.equals(usernameIn)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
