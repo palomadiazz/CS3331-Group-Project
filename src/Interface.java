@@ -9,7 +9,7 @@ public abstract class Interface {
     private File userDataCsv;
     private File carDataCsv;
 
-    public Interface(Scanner scanner, User[] userDataArray, Car[] carDataArray, User user){
+    public Interface(Scanner scanner, User[] userDataArray, Car[] carDataArray, User user, File userDataCsv, File carDataCsv){
         this.scanner = scanner;
         this.userDataArray = userDataArray;
         this.carDataArray = carDataArray;
