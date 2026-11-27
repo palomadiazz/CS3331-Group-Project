@@ -11,7 +11,7 @@ public class Login {
         this.userDataArray = userDataArray;
     }
     
-    public void superMenu(){
+    public void supermenu(){
         String menu =
         """
                 ===============================================
