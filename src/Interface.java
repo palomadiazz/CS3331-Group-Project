@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public abstract class Interface {
-    protected Scanner scanner;
+    protected Scanner inputReader;
     protected User[] userDataArray;
     protected Car[] carDataArray;
     protected User user;
     protected File userDataCsv;
     protected File carDataCsv;
 
-    public Interface(Scanner scanner, User[] userDataArray, Car[] carDataArray, User user, File userDataCsv, File carDataCsv){
-        this.scanner = scanner;
+    public Interface(Scanner inputReader, User[] userDataArray, Car[] carDataArray, User user, File userDataCsv, File carDataCsv){
+        this.inputReader = inputReader;
         this.userDataArray = userDataArray;
         this.carDataArray = carDataArray;
         this.user = user;
@@ -30,7 +30,7 @@ public abstract class Interface {
             System.out.println(menu);
 
             System.out.print("\nOption: ");
-            option = this.scanner.next();
+            option = this.inputReader.next();
 
             try {
                 parsedOption = Integer.parseInt(option);
