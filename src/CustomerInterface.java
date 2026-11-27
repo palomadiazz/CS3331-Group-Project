@@ -66,7 +66,6 @@ public class CustomerInterface extends Interface {
         }
     }
 
-    // INCOMPLETE
     public void filterCars(){
         String menu = 
         """
@@ -77,11 +76,11 @@ public class CustomerInterface extends Interface {
             [3] ---------------------- Condition
             [4] ---------------------- Price
         """;
+        String criterion;
 
 
         switch (optionHandler(menu, 4)) {
             case 1:      
-                String criterion;
                 int idCriterion;
                 try {
                     System.out.print("Enter ID: ");
@@ -109,6 +108,29 @@ public class CustomerInterface extends Interface {
                 submenuCarByCondition();
                 break;
             case 4: 
+                int priceCriterion;
+                boolean found = false;
+
+                try {
+                    System.out.print("Enter price: ");
+                    criterion = inputReader.next();
+                    
+                    priceCriterion = Integer.parseInt(criterion);
+                } catch (NumberFormatException e){
+                    System.out.println("Mismatched input. Returning...");
+                    return;
+                }
+
+                for (int x = 0; x < carDataArray.length; x++){
+                    if (Math.abs(carDataArray[x].price-priceCriterion)<=5000) {
+                        carDataArray[x].displayCar();
+                        found = true;
+                    }                           
+                }
+
+                if (!found) {
+                    System.out.println("Car not found.");
+                }
                 break;
         }
     }
