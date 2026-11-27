@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class CustomerInterface extends Interface {
 
-    public CustomerInterface(Scanner scanner, User[] userDataArray, Car[] carDataArray, Customer customer, File userDataCsv, File carDataCsv) {
-        super(scanner, userDataArray, carDataArray, customer, userDataCsv, carDataCsv);
+    public CustomerInterface(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer, File userDataCsv, File carDataCsv) {
+        super(inputReader, userDataArray, carDataArray, customer, userDataCsv, carDataCsv);
     }
 
     @Override
@@ -78,16 +78,82 @@ public class CustomerInterface extends Interface {
             [4] ---------------------- Price
         """;
 
+
         switch (optionHandler(menu, 4)) {
-            case 1:       
+            case 1:      
+                String criterion;
+                int idCriterion;
+                try {
+                    System.out.print("Enter ID: ");
+                    criterion = inputReader.next();
+                    idCriterion = Integer.parseInt(criterion);
+
+                } catch (NumberFormatException e){
+                    System.out.println("Mismatched input. Returning...");
+                    break;
+                }
+
+                Car result = carById(idCriterion);
+
+                if (result != null) {
+                    result.displayCar();
+                } else {
+                    System.out.println("Car not found.");
+                }
+
                 break;
             case 2:
+                submenuCarByType();
                 break;
             case 3:
+                submenuCarByCondition();
                 break;
             case 4: 
                 break;
         }
+    }
+
+    public void submenuCarByType(){
+        String menu = 
+        """
+            Choose search criteria: 
+                            
+            [1] ---------------------- Hatchback
+            [2] ---------------------- Pickup
+            [3] ---------------------- Sedan
+            [4] ---------------------- SUV
+        """;
+        String typeIn = "Placeholder";
+
+        switch (optionHandler(menu, 4)) {
+            case 1 -> typeIn = "Hatchback";
+            case 2 -> typeIn = "Pickup";
+            case 3 -> typeIn = "Sedan";
+            case 4 -> typeIn = "SUV";   
+        }
+        if (!PrintCarByType(typeIn)){
+            System.out.println("Car not found.");
+        }
+    }
+
+    public void submenuCarByCondition(){
+        String menu = 
+        """
+            Choose search criteria: 
+                            
+            [1] ---------------------- New
+            [2] ---------------------- Used
+        """;
+        String conditionIn = "Placeholder";
+
+        switch (optionHandler(menu, 2)) {
+            case 1 -> conditionIn = "New";
+            case 2 -> conditionIn = "Used";
+        }
+        if (!PrintCarByCondition(conditionIn)){
+            System.out.println("Car not found.");
+        }
+
     }
     
     public Car carById(int idIn){
