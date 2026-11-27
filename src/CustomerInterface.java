@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class CustomerInterface extends Interface {
 
-    public CustomerInterface(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer customer, File userDataCsv, File carDataCsv) {
-        super(inputReader, userDataArray, carDataArray, customer, userDataCsv, carDataCsv);
+    public CustomerInterface(Scanner inputReader, User[] userDataArray, Car[] carDataArray, Customer user, File userDataCsv, File carDataCsv) {
+        super(inputReader, userDataArray, carDataArray, user, userDataCsv, carDataCsv);
     }
 
     @Override
@@ -44,6 +44,30 @@ public class CustomerInterface extends Interface {
     }
 
     public void manageProfile(){
+        String menu = 
+            """
+                MANAGE PROFILE
+                [1] ---------------------- View Profile
+                [2] ---------------------- Change Username
+                [3] ---------------------- Change Password
+                [4] ---------------------- Add Money
+                [5] ---------------------- Back
+            """;
+        while (true) { 
+            switch (optionHandler(menu, 5)) {
+                case 1:
+                    ((Customer) this.user).displayProfile();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:  
+                    return;
+            }
+        }
 
     }
 
